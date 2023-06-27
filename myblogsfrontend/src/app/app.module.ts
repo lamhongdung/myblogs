@@ -10,7 +10,6 @@ import { EditProfileComponent } from './component/edit-profile/edit-profile.comp
 import { LoginComponent } from './component/login/login.component';
 import { BlogListComponent } from './component/blog-list/blog-list.component';
 import { BlogCreateComponent } from './component/blog-create/blog-create.component';
-import { BlogViewComponent } from './component/blog-view/blog-view.component';
 import { CommentAddComponent } from './component/comment-add/comment-add.component';
 import { NotifierModule } from 'angular-notifier';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -27,7 +26,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     BlogListComponent,
     BlogCreateComponent,
-    BlogViewComponent,
     CommentAddComponent
   ],
   imports: [
