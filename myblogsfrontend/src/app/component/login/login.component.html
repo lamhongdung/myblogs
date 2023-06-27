@@ -1,0 +1,94 @@
+<div class="text-center">
+    <!-- title -->
+    <h3>Login</h3>
+    <hr width="510px">
+</div>
+
+<!-- {{loginForm.value | json}} -->
+
+<div class="container">
+
+    <!-- call the function login() when user clicks on the "Login" button -->
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="row mt-5">
+
+            <!-- move column to central -->
+            <div class="col-md-6 offset-md-3">
+                <div class="container">
+
+                    <!-- Email -->
+                    <div class="row mb-3">
+
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="email">
+                                Email<small class="text-danger">*</small>
+                            </label>
+                        </div>
+
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="text" formControlName="email" placeholder="Email"
+                                id="email">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.email">
+                                <!-- errors on the "email" field -->
+                                <div *ngIf="loginForm.get('email')?.hasError(e.type) && 
+                                    (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="row mb-3">
+
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="password">
+                                Password<small class="text-danger">*</small>
+                            </label>
+                        </div>
+
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="password" formControlName="password"
+                                placeholder="Password" id="password">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.password">
+                                <!-- errors on the "password" field -->
+                                <div *ngIf="loginForm.get('password')?.hasError(e.type) && 
+                                        (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- buttons -->
+        <div class="d-flex justify-content-center">
+            <div>
+                <!-- the "Login" button -->
+                <button type="submit" style="width: 150px" class="btn btn-primary mr-2">
+
+                    <!-- display the spinner icon when press the "Login" button -->
+                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
+                    <!-- Change label button "Login" to "Loading..." -->
+                    <span *ngIf="showSpinner">Loading...</span>
+                    <!-- after finish loading then re-changes button name to "Login" -->
+                    <span *ngIf="!showSpinner">Login</span>
+
+                </button>
+
+                <!-- the "Cancel" button -->
+                <!-- re-direct to the "product-list" page -->
+                <button class="btn btn-dark" routerLink="/product-list" style="width: 150px">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
