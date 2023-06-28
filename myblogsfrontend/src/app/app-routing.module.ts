@@ -18,9 +18,9 @@ const routes: Routes = [
     }
   },
   // { path: '', redirectTo: '/blog-list', pathMatch: 'full' },
-  { path: '', redirectTo: '/signup', pathMatch: 'full' },
+  { path: '', redirectTo: '/post-list', pathMatch: 'full' },
   // if paths are not in the above list then redirects to path '/blog-list'
-  { path: '**', redirectTo: '/blog-list', pathMatch: 'full' }
+  { path: '**', redirectTo: '/post-list', pathMatch: 'full' }
 ];
 
 @NgModule({

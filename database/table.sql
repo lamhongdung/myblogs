@@ -69,14 +69,14 @@ insert into `category`(id, name, status) values
 set foreign_key_checks = 1;
 
 -- -----------------------------------------------------
--- Table `blogStatus`
+-- Table `postStatus`
 -- -----------------------------------------------------
 
 set foreign_key_checks = 0;
 
-drop table if exists `blogStatus`;
+drop table if exists `postStatus`;
 
-create table `blogStatus` (
+create table `postStatus` (
 
 	`statusid` int not null,
 	`name` varchar(255) not null,
@@ -85,45 +85,45 @@ create table `blogStatus` (
   
 ) engine=InnoDB auto_increment=2001 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
 
-insert into `blogStatus`(statusid, name) values 
+insert into `postStatus`(statusid, name) values 
 (1,'Draft'),
 (2,'Published');
 
 set foreign_key_checks = 1;
 
 -- -----------------------------------------------------
--- Table `blog`
+-- Table `post`
 -- -----------------------------------------------------
 
 set foreign_key_checks = 0;
 
-drop table if exists `blog`;
+drop table if exists `post`;
 
-create table `blog` (
+create table `post` (
 
-	`blogid` int not null auto_increment,
+	`postid` int not null auto_increment,
 	`title` varchar(2000) not null,
 	`categoryid` int not null,
 	`creatorid` int not null,
-	`blogStatusid` int not null,
+	`postStatusid` int not null,
 	`content` text not null,
     -- 
 	`createDatetime` datetime not null,
 	`lastUpdateDatetime` datetime not null,
     
-	primary key (`blogid`),
+	primary key (`postid`),
     
-	key `fk_categoryid_blog` (`categoryid`),
-	key `fk_creatorid_blog` (`creatorid`),
-	key `fk_blogStatusid_blog` (`blogStatusid`),
+	key `fk_categoryid_post` (`categoryid`),
+	key `fk_creatorid_post` (`creatorid`),
+	key `fk_postStatusid_post` (`postStatusid`),
     
-	constraint `fk_categoryid_blog` foreign key (`categoryid`) references `category` (`id`),
-	constraint `fk_creatorid_blog` foreign key (`creatorid`) references `user` (`id`),
-	constraint `fk_blogStatusid_blog` foreign key (`blogStatusid`) references `blogStatus` (`statusid`)
+	constraint `fk_categoryid_post` foreign key (`categoryid`) references `category` (`id`),
+	constraint `fk_creatorid_post` foreign key (`creatorid`) references `user` (`id`),
+	constraint `fk_postStatusid_post` foreign key (`postStatusid`) references `postStatus` (`statusid`)
   
 ) engine=InnoDB auto_increment=2001 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
 
-INSERT INTO `blog` VALUES (1,'Ông nội và cháu',1,11,2,'<p><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">Ông nội và người cháu đích tôn 3 tuổi đang ngồi chơi trò bán hàng.</span></span></p><p style="text-align:start"><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Cháu:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Đây tôi đưa bác 5.000 đồng, nhưng với một điều kiện.<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Ông:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Điều kiện gì cũng được.<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Cháu:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Thật không?<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Ông:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Thật. Bác cứ nói đi.<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Cháu:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Bác phải về dạy lại con bác đi nhé, con bác hay đánh tôi lắm đấy.</span></span></p>','2023-04-22 14:54:40','2023-04-22 15:08:56');
+INSERT INTO `post` VALUES (1,'Ông nội và cháu',1,11,2,'<p><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">Ông nội và người cháu đích tôn 3 tuổi đang ngồi chơi trò bán hàng.</span></span></p><p style="text-align:start"><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Cháu:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Đây tôi đưa bác 5.000 đồng, nhưng với một điều kiện.<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Ông:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Điều kiện gì cũng được.<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Cháu:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Thật không?<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Ông:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Thật. Bác cứ nói đi.<br></span></span><strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);">- Cháu:</span></span></strong><span style="color:rgba(0, 0, 0, 0.87);"><span style="background-color:rgb(255, 255, 255);"> Bác phải về dạy lại con bác đi nhé, con bác hay đánh tôi lắm đấy.</span></span></p>','2023-04-22 14:54:40','2023-04-22 15:08:56');
 
 set foreign_key_checks = 1;
 
@@ -137,7 +137,7 @@ drop table if exists `comment`;
 
 create table `comment` (
 
-	`blogid` int not null,
+	`postid` int not null,
 	`commentid` int not null auto_increment,
 	`commentDescription` text not null,
 	`commenterid` int not null,
@@ -145,8 +145,8 @@ create table `comment` (
     
 	PRIMARY key (`commentid`),
     
-	key `fk_blogid_comment` (`blogid`),
-	constraint `fk_blogid_comment` foreign key (`blogid`) references `blog` (`blogid`)
+	key `fk_postid_comment` (`postid`),
+	constraint `fk_postid_comment` foreign key (`postid`) references `post` (`postid`)
   
 ) engine=InnoDB auto_increment=2001 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
 

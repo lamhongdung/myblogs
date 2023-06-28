@@ -8,13 +8,14 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { EditProfileComponent } from './component/edit-profile/edit-profile.component';
 import { LoginComponent } from './component/login/login.component';
-import { BlogListComponent } from './component/blog-list/blog-list.component';
-import { BlogCreateComponent } from './component/blog-create/blog-create.component';
-import { CommentAddComponent } from './component/comment-add/comment-add.component';
 import { NotifierModule } from 'angular-notifier';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PostCreateComponent } from './component/post-create/post-create.component';
+import { PostEditComponent } from './component/post-edit/post-edit.component';
+import { PostListComponent } from './component/post-list/post-list.component';
+import { PostViewComponent } from './component/post-view/post-view.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +25,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     EditProfileComponent,
     LoginComponent,
-    BlogListComponent,
-    BlogCreateComponent,
-    CommentAddComponent
+    PostCreateComponent,
+    PostEditComponent,
+    PostListComponent,
+    PostViewComponent
   ],
   imports: [
     BrowserModule,
