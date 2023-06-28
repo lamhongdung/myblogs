@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NotifierService } from 'angular-notifier';
+import { NotificationType } from 'src/app/enum/NotificationType';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-list',
@@ -8,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class PostListComponent implements OnInit {
 
   // list of products
-  products: Product[] = [];
+  // products: Product[] = [];
 
   // search term
   searchTerm: string = "";
@@ -38,8 +42,6 @@ export class PostListComponent implements OnInit {
   });
 
   constructor(
-    private productService: ProductService,
-    private cartService: CartService,
     private formBuilder: FormBuilder,
     private notifierService: NotifierService
   ) {
@@ -48,58 +50,59 @@ export class PostListComponent implements OnInit {
   // ngOnInit() is similar to @PostConstruct
   ngOnInit() {
 
+    console.log("postlist");
     // search products
-    this.searchProducts(this.thePageNumber, this.thePageSize, this.searchProduct.value.searchTerm!);
+    // this.searchProducts(this.thePageNumber, this.thePageSize, this.searchProduct.value.searchTerm!);
 
   } // end of ngOnInit()
 
   // get products, total products
-  searchProducts(pageNumber: number, pageSize: number, searchTerm: string) {
+  // searchProducts(pageNumber: number, pageSize: number, searchTerm: string) {
 
-    // get products
-    this.productService.searchProducts((pageNumber - 1) * pageSize, pageSize, searchTerm)
+  //   // get products
+  //   this.productService.searchProducts((pageNumber - 1) * pageSize, pageSize, searchTerm)
 
-      .subscribe({
+  //     .subscribe({
 
-        // get products successful
-        next: (data: Product[]) => {
+  //       // get products successful
+  //       next: (data: Product[]) => {
 
-          return this.products = data
+  //         return this.products = data
 
-        },
+  //       },
 
-        // there are some errors when get products
-        error: (errorResponse: HttpErrorResponse) => {
+  //       // there are some errors when get products
+  //       error: (errorResponse: HttpErrorResponse) => {
 
-          // show the error message to user
-          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+  //         // show the error message to user
+  //         this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
 
-        }
-      });
+  //       }
+  //     });
 
-    // get total products(total elements)
-    this.productService.getTotalProducts(searchTerm)
+  //   // get total products(total elements)
+  //   this.productService.getTotalProducts(searchTerm)
 
-      .subscribe({
+  //     .subscribe({
 
-        // get total products successful
-        next: (data: number) => {
+  //       // get total products successful
+  //       next: (data: number) => {
 
-          // total products
-          this.theTotalElements = data;
+  //         // total products
+  //         this.theTotalElements = data;
 
-        },
+  //       },
 
-        // there are some errors when get total products
-        error: (errorResponse: HttpErrorResponse) => {
+  //       // there are some errors when get total products
+  //       error: (errorResponse: HttpErrorResponse) => {
 
-          // show the error message to user
-          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+  //         // show the error message to user
+  //         this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
 
-        }
-      });
+  //       }
+  //     });
 
-  } // end of searchProducts()
+  // } // end of searchProducts()
 
   // when user selects the dropdown 'PageSize' then update its page size
   updatePageSize(pageSize: number) {
@@ -111,22 +114,22 @@ export class PostListComponent implements OnInit {
     this.thePageNumber = 1;
 
     // search products
-    this.searchProducts(this.thePageNumber, this.thePageSize, this.searchProduct.value.searchTerm!)
+    // this.searchProducts(this.thePageNumber, this.thePageSize, this.searchProduct.value.searchTerm!)
 
   } // end of updatePageSize()
 
   // add product to cart
-  addToCart(theProduct: Product) {
+  // addToCart(theProduct: Product) {
 
-    console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
+  //   console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
 
-    // create new cartItem with quantity = 1
-    const theCartItem = new CartItem(theProduct);
+  //   // create new cartItem with quantity = 1
+  //   const theCartItem = new CartItem(theProduct);
 
-    // add cartItem to cart
-    this.cartService.addToCart(theCartItem);
+  //   // add cartItem to cart
+  //   this.cartService.addToCart(theCartItem);
 
-  } // end of addToCart()
+  // } // end of addToCart()
 
   // send notification to user
   private sendNotification(notificationType: NotificationType, message: string): void {

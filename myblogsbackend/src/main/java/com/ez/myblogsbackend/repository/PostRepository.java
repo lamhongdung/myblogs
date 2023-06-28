@@ -30,15 +30,15 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // get posts based on category id
     @Query(value = "" +
-            " {call sp_searchPosts( " +
-            "                        :pageNumber, " +
-            "                        :pageSize, " +
-            "                        :categoryid, " +
-            "                        )} "
+            " {call sp_post_searchPosts( " +
+            "                           :pageNumber, " +
+            "                           :pageSize, " +
+            "                           :categoryid " +
+            "                           )} "
             , nativeQuery = true)
-    public List<PostSearchResponse> searchTicketsByUserid(@Param("pageNumber") long pageNumber,
-                                                          @Param("pageSize") long pageSize,
-                                                          @Param("categoryid") long categoryid
+    public List<PostSearchResponse> searchPosts(@Param("pageNumber") long pageNumber,
+                                                @Param("pageSize") long pageSize,
+                                                @Param("categoryid") long categoryid
     );
 //
 //    // calculate total of tickets based on search criteria for pagination

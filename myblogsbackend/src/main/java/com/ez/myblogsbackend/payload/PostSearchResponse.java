@@ -7,31 +7,31 @@ public interface PostSearchResponse {
     // "postid" column
     public Long getPostid();
 
-    // "title" column
-    public String getTitle();
-
-    // "creatorName" column
-    public String getCreatorName();
-
-    // "createDatetime" column
-    public Date getCreateDatetime();
-
-    // "postStatusName" column
-    public String getPostStatusName();
-
-    // "lastUpdateDatetime" column
-    public Date getLastUpdateDatetime();
-
-    // "creatorEmail" column
-    public String getCreatorEmail();
+    // "categoryid" column
+    public Long getCategoryid();
 
     // "categoryName" column
     public String getCategoryName();
 
+    // "title" column
+    public String getTitle();
+
     // "content" column
     public String getContent();
 
+    // "createDatetime" column
+    public Date getCreateDatetime();
+
+    // "creatorid" column
+    public Long getCreatorid();
+
+    // "creatorEmail" column
+    public String getCreatorEmail();
+
     // "postStatusid" column
     public long getPostStatusid();
+
+    // "postStatusName" column
+    public String getPostStatusName();
 
 }

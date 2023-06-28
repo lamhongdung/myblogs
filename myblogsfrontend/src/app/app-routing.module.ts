@@ -4,12 +4,14 @@ import { UserCreateComponent } from './component/user-create/user-create.compone
 import { EditProfileComponent } from './component/edit-profile/edit-profile.component';
 import { LoginComponent } from './component/login/login.component';
 import { AuthGuard } from './guard/auth.guard';
+import { PostListComponent } from './component/post-list/post-list.component';
 
 const routes: Routes = [
   // sign up
   { path: 'signup', component: UserCreateComponent },
   // login
   { path: 'login', component: LoginComponent },
+  { path: 'post-list', component: PostListComponent },
   // edit profile. only user has already logged-in can edit profile
   {
     path: 'edit-profile/:id', component: EditProfileComponent, canActivate: [AuthGuard],
@@ -17,9 +19,9 @@ const routes: Routes = [
       roles: ['ROLE_USER']
     }
   },
-  // { path: '', redirectTo: '/blog-list', pathMatch: 'full' },
+  // { path: '', redirectTo: '/post-list', pathMatch: 'full' },
   { path: '', redirectTo: '/post-list', pathMatch: 'full' },
-  // if paths are not in the above list then redirects to path '/blog-list'
+  // if paths are not in the above list then redirects to path '/post-list'
   { path: '**', redirectTo: '/post-list', pathMatch: 'full' }
 ];
 
