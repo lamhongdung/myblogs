@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PostSearchResponse } from '../payload/PostSearchResponse';
+import { CategorySidebar } from '../payload/CategorySidebar';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,14 @@ export class PostService {
     );
 
   } // end of searchPosts()
+
+  // get number of posts of each category
+  getCategoriesSidebar(): Observable<CategorySidebar[]> {
+
+    return this.http.get<CategorySidebar[]>(
+      `${this.host}/category-sidebar`
+    );
+
+  } // end of getCategoriesSidebar()
 
 } // end of class PostService

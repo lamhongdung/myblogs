@@ -5,7 +5,7 @@ export const environment = {
     urlAfterLogin: '/blog-list',
 
     // number of lines per a page
-    pageSize: 8,
+    pageSize: 5,
 
 
 };

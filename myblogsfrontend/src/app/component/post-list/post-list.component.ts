@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
 import { NotificationType } from 'src/app/enum/NotificationType';
+import { CategorySidebar } from 'src/app/payload/CategorySidebar';
 import { PostSearchResponse } from 'src/app/payload/PostSearchResponse';
 import { PostService } from 'src/app/service/post.service';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,11 @@ export class PostListComponent implements OnInit {
   // list of posts
   posts: PostSearchResponse[] = [];
 
-  // category id
+  // number of posts of each category
+  categoriesSidebar: CategorySidebar[] = [];
+
+  // category id.
+  // =0: means all categories.
   categoryid: number = 0;
 
   //
@@ -27,27 +31,20 @@ export class PostListComponent implements OnInit {
   // current page
   thePageNumber: number = 1;
 
-  // thePageSize = 8;
+  // thePageSize = 5;
   thePageSize: number = environment.pageSize;
 
   // initial page size of 'pageSize' dropdown
   thePageSizeInit: number = environment.pageSize;
 
-  // total products based on search criteria
+  // total posts based on category id
   theTotalElements: number = 0;
 
-  // the "Search product" form
-  searchProduct = this.formBuilder.group({
-
-    // search term
-    searchTerm: ['']
-
-  });
-
   constructor(
-    private formBuilder: FormBuilder,
+
     private notifierService: NotifierService,
     private postService: PostService
+
   ) {
   }
 
@@ -56,6 +53,9 @@ export class PostListComponent implements OnInit {
 
     // list of posts by category id
     this.searchPosts(this.thePageNumber, this.thePageSize, this.categoryid);
+
+    // categories sidebar
+    this.getCategoriesSidebar();
 
   } // end of ngOnInit()
 
@@ -106,6 +106,32 @@ export class PostListComponent implements OnInit {
     //   });
 
   } // end of searchPosts()
+
+  // get number of posts of each category
+  getCategoriesSidebar() {
+
+    // get number of posts of each category
+    this.postService.getCategoriesSidebar()
+
+      .subscribe({
+
+        // get list of posts by category id successful
+        next: (data: CategorySidebar[]) => {
+
+          return this.categoriesSidebar = data
+
+        },
+
+        // there are some errors when get products
+        error: (errorResponse: HttpErrorResponse) => {
+
+          // show the error message to user
+          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+
+        }
+      });
+
+  } // end of getCategoriesSidebar()
 
   // when user selects the dropdown 'PageSize' then update its page size
   updatePageSize(pageSize: number) {

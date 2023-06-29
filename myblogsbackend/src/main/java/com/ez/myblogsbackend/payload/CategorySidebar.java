@@ -1,6 +1,6 @@
 package com.ez.myblogsbackend.payload;
 
-public interface NumOfPostsPerCategory {
+public interface CategorySidebar {
 
     // "id" column
     Long getId();

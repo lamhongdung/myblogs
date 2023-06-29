@@ -19,7 +19,7 @@ public class Constant {
     public static final String[] PUBLIC_URLS = {
             "/login",
             "/signup", "/user-create",
-            "/post-search"
+            "/post-search", "/category-sidebar"
     };
 
     //

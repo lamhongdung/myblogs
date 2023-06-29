@@ -75,6 +75,8 @@ from _post a
 	left join category b on a.categoryid = b.id
     left join user c on a.creatorid = c.id
     left join postStatus d on a.postStatusid = d.statusid
+where a.postStatusid = 2 -- published status
+order by a.createDatetime desc
 -- only 1 page with 5 elements
 limit in_pageNumber, in_pageSize;
 

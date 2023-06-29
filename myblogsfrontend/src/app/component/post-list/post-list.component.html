@@ -5,53 +5,84 @@
     <div class="container-fluid">
 
         <div class="row">
+            <div class="col-md-9 content">
 
-            <!-- loop over the collection of products -->
-            <div *ngFor="let post of posts" class="col-md-3 mb-2">
+                <!-- posts -->
+                <div class="card mb-3" *ngFor="let post of posts">
+                    <!-- post -->
+                    <div class="card-header">
+                        <!-- title -->
+                        <span><b>{{post.title}}</b></span>
 
-                {{post.content}}
+                        <!-- comment datetime -->
+                        <span class="float-right">{{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                    </div>
 
+                    <!-- post content -->
+                    <div class="card-body">
+                        <p class="card-text" [innerHtml]="post.content"></p>
+                    </div>
+
+                    <!-- comment file + comment id -->
+                    <div class="card-footer bg-transparent">
+
+                        <span>
+                            {{post.categoryName}}
+                        </span>
+
+                        <span class="float-right">
+                            {{post.creatorEmail}}
+                        </span>
+                    </div>
+                </div>
             </div>
 
-            <!-- if products.length == 0(products is null/undefine) then display a message -->
-            <!-- <div *ngIf="products?.length == 0" class="alert alert-info col-md-12">
-                There are no products contain string '{{this.searchProduct.value.searchTerm!}}'.
-            </div> -->
-
+            <!-- categories sidebar -->
+            <div class="col-md-3">
+                <h3>Categories</h3>
+                <ul *ngFor="let c of categoriesSidebar">
+                    <li>
+                        <a routerLink="/post-search?pageNumber=0&pageSize={{thePageSize}}&categoryid={{c.id}}"
+                            routerLinkActive="active-link">
+                            {{ c.name }} ({{c.numOfPosts}})
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <!-- pagination + pageSize -->
-    <div class="container-fluid">
+        <!-- pagination + pageSize -->
+        <div class="container-fluid">
 
-        <div class="row">
+            <div class="row">
 
-            <div class="col-md-6 offset-md-6">
-                <div class="row">
-                    <!-- pagination -->
-                    <div class="col-md-9" style="padding-left: 30%">
-                        <!-- [maxSize]="5": only display up to 6 numbers(6 buttons on pagination bar). -->
-                        <!-- [boundaryLinks]="true": display <<(move first) and >>(move last). -->
-                        <!-- <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                <div class="col-md-6 offset-md-6">
+                    <div class="row">
+                        <!-- pagination -->
+                        <div class="col-md-9" style="padding-left: 30%">
+                            <!-- [maxSize]="5": only display up to 6 numbers(6 buttons on pagination bar). -->
+                            <!-- [boundaryLinks]="true": display <<(move first) and >>(move last). -->
+                            <!-- <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
                             [collectionSize]="theTotalElements" [maxSize]="5" [boundaryLinks]="true"
                             (pageChange)="searchProducts(thePageNumber,thePageSize,this.searchProduct.value.searchTerm!)">
                         </ngb-pagination> -->
-                    </div>
+                        </div>
 
-                    <!-- Page size -->
-                    <div class="col-md-3 mt-2" style="text-align: right;">
-                        <span class="mr-2">Page Size</span>
-                        <!-- when dropdown changes its value then call method updatePageSize() -->
-                        <select #mySelect (change)="updatePageSize(+mySelect.value)">
-                            <option selected="true">{{thePageSizeInit}}</option>
-                            <option>20</option>
-                            <option>50</option>
-                        </select>
-                    </div>
+                        <!-- Page size -->
+                        <div class="col-md-3 mt-2" style="text-align: right;">
+                            <span class="mr-2">Page Size</span>
+                            <!-- when dropdown changes its value then call method updatePageSize() -->
+                            <select #mySelect (change)="updatePageSize(+mySelect.value)">
+                                <option selected="true">{{thePageSizeInit}}</option>
+                                <option>10</option>
+                                <option>15</option>
+                                <option>20</option>
+                            </select>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>

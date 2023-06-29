@@ -1,8 +1,6 @@
 package com.ez.myblogsbackend.service;
 
-import com.ez.myblogsbackend.payload.DropdownResponse;
-import com.ez.myblogsbackend.payload.HttpResponse;
-import com.ez.myblogsbackend.payload.NumOfPostsPerCategory;
+import com.ez.myblogsbackend.payload.CategorySidebar;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import com.ez.myblogsbackend.repository.PostRepository;
 import org.slf4j.Logger;
@@ -12,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.OK;
-
 @Service
 public class PostService {
     private Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -22,7 +18,7 @@ public class PostService {
     private PostRepository postRepository;
 
     // get all active categories and number of posts of each category
-    public List<NumOfPostsPerCategory> getAllActiveCategories() {
+    public List<CategorySidebar> getAllActiveCategories() {
 
         LOGGER.info("Get all active categories)");
 

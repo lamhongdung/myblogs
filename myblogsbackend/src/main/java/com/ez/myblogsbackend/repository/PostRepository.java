@@ -1,7 +1,7 @@
 package com.ez.myblogsbackend.repository;
 
 import com.ez.myblogsbackend.entity.Post;
-import com.ez.myblogsbackend.payload.NumOfPostsPerCategory;
+import com.ez.myblogsbackend.payload.CategorySidebar;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +19,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "" +
             " {call sp_post_numOfPostsPerCategory()} "
             , nativeQuery = true)
-    public List<NumOfPostsPerCategory> getAllActiveCategories();
+    public List<CategorySidebar> getAllActiveCategories();
 
     // get posts based on category id
     @Query(value = "" +
