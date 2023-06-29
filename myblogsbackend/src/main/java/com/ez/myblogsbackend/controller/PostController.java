@@ -1,6 +1,7 @@
 package com.ez.myblogsbackend.controller;
 
 import com.ez.myblogsbackend.payload.DropdownResponse;
+import com.ez.myblogsbackend.payload.NumOfPostsPerCategory;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import com.ez.myblogsbackend.service.PostService;
 import org.slf4j.Logger;
@@ -29,10 +30,10 @@ public class PostController {
     //
     // all authenticated users can access this resource.
     @GetMapping("/category-active")
-    public ResponseEntity<List<DropdownResponse>> getAllActiveCategories() {
+    public ResponseEntity<List<NumOfPostsPerCategory>> getAllActiveCategories() {
 
         // get all active categories
-        List<DropdownResponse> categoriesResponses = postService.getAllActiveCategories();
+        List<NumOfPostsPerCategory> categoriesResponses = postService.getAllActiveCategories();
 
         return new ResponseEntity<>(categoriesResponses, OK);
     }

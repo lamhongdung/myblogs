@@ -1,7 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NotifierService } from 'angular-notifier';
 import { NotificationType } from 'src/app/enum/NotificationType';
+import { PostSearchResponse } from 'src/app/payload/PostSearchResponse';
+import { PostService } from 'src/app/service/post.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,11 +14,11 @@ import { environment } from 'src/environments/environment';
 })
 export class PostListComponent implements OnInit {
 
-  // list of products
-  // products: Product[] = [];
+  // list of posts
+  posts: PostSearchResponse[] = [];
 
-  // search term
-  searchTerm: string = "";
+  // category id
+  categoryid: number = 0;
 
   //
   // properties for pagination
@@ -43,66 +46,66 @@ export class PostListComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private notifierService: NotifierService
+    private notifierService: NotifierService,
+    private postService: PostService
   ) {
   }
 
   // ngOnInit() is similar to @PostConstruct
   ngOnInit() {
 
-    console.log("postlist");
-    // search products
-    // this.searchProducts(this.thePageNumber, this.thePageSize, this.searchProduct.value.searchTerm!);
+    // list of posts by category id
+    this.searchPosts(this.thePageNumber, this.thePageSize, this.categoryid);
 
   } // end of ngOnInit()
 
   // get products, total products
-  // searchProducts(pageNumber: number, pageSize: number, searchTerm: string) {
+  searchPosts(pageNumber: number, pageSize: number, categoryid: number) {
 
-  //   // get products
-  //   this.productService.searchProducts((pageNumber - 1) * pageSize, pageSize, searchTerm)
+    // get products
+    this.postService.searchPosts((pageNumber - 1) * pageSize, pageSize, categoryid)
 
-  //     .subscribe({
+      .subscribe({
 
-  //       // get products successful
-  //       next: (data: Product[]) => {
+        // get list of posts by category id successful
+        next: (data: PostSearchResponse[]) => {
 
-  //         return this.products = data
+          return this.posts = data
 
-  //       },
+        },
 
-  //       // there are some errors when get products
-  //       error: (errorResponse: HttpErrorResponse) => {
+        // there are some errors when get products
+        error: (errorResponse: HttpErrorResponse) => {
 
-  //         // show the error message to user
-  //         this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+          // show the error message to user
+          this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
 
-  //       }
-  //     });
+        }
+      });
 
-  //   // get total products(total elements)
-  //   this.productService.getTotalProducts(searchTerm)
+    // // get total products(total elements)
+    // this.productService.getTotalProducts(searchTerm)
 
-  //     .subscribe({
+    //   .subscribe({
 
-  //       // get total products successful
-  //       next: (data: number) => {
+    //     // get total products successful
+    //     next: (data: number) => {
 
-  //         // total products
-  //         this.theTotalElements = data;
+    //       // total products
+    //       this.theTotalElements = data;
 
-  //       },
+    //     },
 
-  //       // there are some errors when get total products
-  //       error: (errorResponse: HttpErrorResponse) => {
+    //     // there are some errors when get total products
+    //     error: (errorResponse: HttpErrorResponse) => {
 
-  //         // show the error message to user
-  //         this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+    //       // show the error message to user
+    //       this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
 
-  //       }
-  //     });
+    //     }
+    //   });
 
-  // } // end of searchProducts()
+  } // end of searchPosts()
 
   // when user selects the dropdown 'PageSize' then update its page size
   updatePageSize(pageSize: number) {
