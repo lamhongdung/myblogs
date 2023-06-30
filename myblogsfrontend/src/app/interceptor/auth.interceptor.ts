@@ -21,6 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // the following links do not need to attach JWT in requests
     if (httpRequest.url.includes(`${this.authService.host}/login`) ||
       (httpRequest.url.includes(`${this.authService.host}/signup`)) ||
+      (httpRequest.url.includes(`${this.authService.host}/user-create`)) ||
       (httpRequest.url.includes(`${this.authService.host}/post-list`)) ||
       (httpRequest.url.includes(`${this.authService.host}/post-search`)) ||
       (httpRequest.url.includes(`${this.authService.host}/category-sidebar`)) ||

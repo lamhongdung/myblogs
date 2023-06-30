@@ -43,7 +43,7 @@ public class UserController extends ExceptionHandling {
     @Autowired
     private JWTTokenProvider jwtTokenProvider;
 
-    // customer logins to the MarketPlace system.
+    // user logins to the myblogs system.
     // all users can access this end point "/login"
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody @Valid LoginUser loginUser,
@@ -84,7 +84,7 @@ public class UserController extends ExceptionHandling {
 
     } // end of login()
 
-    // create new customer(customer signs up account).
+    // create new user(user signs up account).
     // all users can access this end point "/user-create"
     @PostMapping("/user-create")
     public ResponseEntity<User> createUser(@RequestBody @Valid User user, BindingResult bindingResult)
@@ -95,12 +95,12 @@ public class UserController extends ExceptionHandling {
         // if user data is invalid then throw exception
         if (bindingResult.hasErrors()) {
 
-            LOGGER.info("Customer data is invalid");
+            LOGGER.info("User data is invalid");
 
             throw new BindException(bindingResult);
         }
 
-        // create new customer
+        // create new user
         User newUser = userService.createUser(user);
 
         return new ResponseEntity<>(newUser, OK);

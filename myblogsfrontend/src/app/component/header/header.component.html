@@ -32,8 +32,9 @@
                         </a>
                     </li>
 
-                    <!-- SignUp menu -->
-                    <li class="nav-item active">
+                    <!-- SignUp menu. -->
+                    <!-- only display the 'Sign up menu' if user has not yet logged in -->
+                    <li class="nav-item active" *ngIf="userid == 0 || userid == undefined">
                         <a class="nav-link" routerLink="/signup" id="navbarSignup" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             Sign Up

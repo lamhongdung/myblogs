@@ -18,7 +18,7 @@ export class UserCreateComponent implements OnInit {
   // allow display spinner icon or not
   // =true: allow to display spinner in the "Save" button
   // =false: do not allow to display spinner in the "Save" button
-  showSpinner: boolean | undefined;
+  showSpinner: boolean = false;
 
   userForm!: FormGroup;
   user: User | undefined;
@@ -46,7 +46,6 @@ export class UserCreateComponent implements OnInit {
       { type: 'pattern', message: 'Phone number must be 10 digits length' }
     ],
     address: [
-      { type: 'required', message: 'Please input the shipping address' },
       { type: 'allWhitespace', message: 'Shipping address does not allow all white spaces' },
       { type: 'maxlength', message: 'Shipping Address cannot be longer than 100 characters' }
     ]
@@ -87,8 +86,8 @@ export class UserCreateComponent implements OnInit {
       // required and length must be 10 digits
       phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
 
-      // required and max length = 100 characters
-      address: ['', [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(100)]],
+      // max length = 100 characters
+      address: ['', [CustomValidator.allWhitespace, Validators.maxLength(100)]],
 
     });
 
@@ -119,8 +118,8 @@ export class UserCreateComponent implements OnInit {
           // hide spinner(circle)
           this.showSpinner = false;
 
-          // navigate to the "product-list" page
-          this.router.navigateByUrl("/product-list");
+          // navigate to the "/login" page
+          this.router.navigateByUrl("/login");
         },
 
         // create user failure(ex: email already existed,...)

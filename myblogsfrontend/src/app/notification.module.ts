@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
-
-
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
