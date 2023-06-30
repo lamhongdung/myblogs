@@ -35,6 +35,8 @@
                         </span>
                     </div>
                 </div>
+                <!-- end of card -->
+
             </div>
 
             <!-- categories sidebar -->
@@ -51,38 +53,36 @@
             </div>
         </div>
 
-        <!-- pagination + pageSize -->
-        <div class="container-fluid">
+        <div class="row">
+            <!-- pagination -->
+            <div class="col-md-6">
+                <!-- [maxSize]="5": only display up to 6 numbers(6 buttons on pagination bar). -->
+                <!-- [boundaryLinks]="true": display <<(move first) and >>(move last). -->
+                <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"
+                    [maxSize]="4" [boundaryLinks]="true"
+                    (pageChange)="searchPosts(thePageNumber,thePageSize,this.categoryid)">
+                </ngb-pagination>
+            </div>
 
-            <div class="row">
-
-                <div class="col-md-6 offset-md-6">
-                    <div class="row">
-                        <!-- pagination -->
-                        <div class="col-md-9" style="padding-left: 30%">
-                            <!-- [maxSize]="5": only display up to 6 numbers(6 buttons on pagination bar). -->
-                            <!-- [boundaryLinks]="true": display <<(move first) and >>(move last). -->
-                            <!-- <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
-                            [collectionSize]="theTotalElements" [maxSize]="5" [boundaryLinks]="true"
-                            (pageChange)="searchProducts(thePageNumber,thePageSize,this.searchProduct.value.searchTerm!)">
-                        </ngb-pagination> -->
-                        </div>
-
-                        <!-- Page size -->
-                        <div class="col-md-3 mt-2" style="text-align: right;">
-                            <span class="mr-2">Page Size</span>
-                            <!-- when dropdown changes its value then call method updatePageSize() -->
-                            <select #mySelect (change)="updatePageSize(+mySelect.value)">
-                                <option selected="true">{{thePageSizeInit}}</option>
-                                <option>10</option>
-                                <option>15</option>
-                                <option>20</option>
-                            </select>
-                        </div>
-
-                    </div>
-                </div>
+            <!-- Page size -->
+            <div class="col-md-3 mt-2" style="text-align: right;">
+                <span class="mr-2">Page Size</span>
+                <!-- when dropdown changes its value then call method updatePageSize() -->
+                <select #mySelect (change)="updatePageSize(+mySelect.value)">
+                    <option selected="true">{{thePageSizeInit}}</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>20</option>
+                </select>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-9">
+                <hr>
+            </div>
+        </div>
     </div>
+
+    <!-- footer -->
+    <app-footer></app-footer>

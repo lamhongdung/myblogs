@@ -19,6 +19,7 @@ export class PostListComponent implements OnInit {
 
   // number of posts of each category
   categoriesSidebar: CategorySidebar[] = [];
+  categorySidebar!: CategorySidebar;
 
   // category id.
   // =0: means all categories.
@@ -31,7 +32,7 @@ export class PostListComponent implements OnInit {
   // current page
   thePageNumber: number = 1;
 
-  // thePageSize = 5;
+  // thePageSize = 3;
   thePageSize: number = environment.pageSize;
 
   // initial page size of 'pageSize' dropdown
@@ -56,6 +57,8 @@ export class PostListComponent implements OnInit {
 
     // categories sidebar
     this.getCategoriesSidebar();
+
+
 
   } // end of ngOnInit()
 
@@ -83,12 +86,12 @@ export class PostListComponent implements OnInit {
         }
       });
 
-    // // get total products(total elements)
-    // this.productService.getTotalProducts(searchTerm)
+    // // get total posts(total elements)
+    // this.postService.getTotalPosts(categoryid)
 
     //   .subscribe({
 
-    //     // get total products successful
+    //     // get total posts successful
     //     next: (data: number) => {
 
     //       // total products
@@ -96,7 +99,7 @@ export class PostListComponent implements OnInit {
 
     //     },
 
-    //     // there are some errors when get total products
+    //     // there are some errors when get total posts
     //     error: (errorResponse: HttpErrorResponse) => {
 
     //       // show the error message to user
@@ -118,7 +121,11 @@ export class PostListComponent implements OnInit {
         // get list of posts by category id successful
         next: (data: CategorySidebar[]) => {
 
-          return this.categoriesSidebar = data
+          this.categoriesSidebar = data
+
+          this.categorySidebar = this.categoriesSidebar.find(tempCategorySidebar => tempCategorySidebar.id === this.categoryid)!;
+          this.theTotalElements = this.categorySidebar?.numOfPosts;
+          console.log(`theTotalElements: ${this.theTotalElements}`);
 
         },
 
@@ -143,7 +150,7 @@ export class PostListComponent implements OnInit {
     this.thePageNumber = 1;
 
     // search products
-    // this.searchProducts(this.thePageNumber, this.thePageSize, this.searchProduct.value.searchTerm!)
+    this.searchPosts(this.thePageNumber, this.thePageSize, this.categoryid)
 
   } // end of updatePageSize()
 

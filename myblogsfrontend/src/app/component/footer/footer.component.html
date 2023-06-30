@@ -1,3 +1,28 @@
-<div class="container-fluid bg-primary mt-5">
-    <p class="text-center text-light">Copy right by MarketPlace 2023</p>
-</div>
+<!-- the "Post list" screen -->
+<div class="container-fluid">
+
+    <!-- post list -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-9 content">
+
+                <ul *ngFor="let post of posts">
+                    <li>
+                        <a class="mr-2" routerLink="/post-search?pageNumber=0&pageSize={{thePageSize}}"
+                            routerLinkActive="active-link">
+                            {{post.title}}
+                        </a>
+                        <span class="text-muted">
+                            <i>
+                                by {{post.creatorEmail}} on {{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}
+                            </i>
+                        </span>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>

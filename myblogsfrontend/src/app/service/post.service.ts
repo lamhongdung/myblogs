@@ -47,6 +47,15 @@ export class PostService {
 
   } // end of searchPosts()
 
+  // calculate total posts(total elements)
+  getTotalProducts(categoryid: number): Observable<number> {
+
+    return this.http.get<number>(
+      `${this.host}/post-total-elements?categoryid=${categoryid}`
+    );
+
+  } // end of getTotalProducts()
+
   // get number of posts of each category
   getCategoriesSidebar(): Observable<CategorySidebar[]> {
 

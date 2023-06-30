@@ -16,6 +16,8 @@ import { PostCreateComponent } from './component/post-create/post-create.compone
 import { PostEditComponent } from './component/post-edit/post-edit.component';
 import { PostListComponent } from './component/post-list/post-list.component';
 import { PostViewComponent } from './component/post-view/post-view.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { PostViewComponent } from './component/post-view/post-view.component';
     HttpClientModule,
     ReactiveFormsModule,
     NotifierModule,
-    NotifierModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

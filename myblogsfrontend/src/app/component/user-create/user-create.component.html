@@ -1,6 +1,6 @@
 <div class="text-center">
     <h3>Sign up</h3>
-    <hr width="1080px">
+    <hr class="mx-auto" width="1080px">
 </div>
 
 <!-- {{userForm.value | json}} -->
@@ -11,9 +11,9 @@
     <form [formGroup]="userForm" (ngSubmit)="createUser()">
 
         <div class="row mt-5">
-
             <!-- the "Left" column -->
             <div class="col-md-6">
+
                 <div class="container">
 
                     <!-- Email -->
@@ -150,12 +150,11 @@
                         </div>
                         <!-- textbox -->
                         <div class="col-8">
-                            <input class="form-control" type="text" formControlName="address"
-                                id="address" placeholder="Address">
+                            <input class="form-control" type="text" formControlName="address" id="address"
+                                placeholder="Address">
                             <!-- error messages -->
                             <div class="text-danger" *ngFor="let e of errorMessages.address">
-                                <div
-                                    *ngIf="userForm.get('address')?.hasError(e.type) && 
+                                <div *ngIf="userForm.get('address')?.hasError(e.type) && 
                                     (userForm.get('address')?.dirty || userForm.get('address')?.touched)">
 
                                     <small>{{e.message}}</small>
