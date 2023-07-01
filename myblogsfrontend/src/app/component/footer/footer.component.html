@@ -1,18 +1,31 @@
-<!-- the "Post list" screen -->
+<!-- 3 most recent posts -->
 <div class="container-fluid">
 
     <!-- post list -->
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-md-9 content">
+            <div class="col-md-9">
 
+                <!-- 3 most recent posts -->
                 <ul *ngFor="let post of posts">
                     <li>
-                        <a class="mr-2" routerLink="/post-search?pageNumber=0&pageSize={{thePageSize}}"
-                            routerLinkActive="active-link">
+                        <!-- post title -->
+                        <a class="mr-2" routerLink="/post-search/{{post.postid}}" routerLinkActive="active-link">
                             {{post.title}}
                         </a>
+                        <!-- edit post. -->
+                        <!-- users only can edit them-self posts. They cannot edit posts of other authors  -->
+                        <a class="mr-1 text-info" [routerLink]="['/post-edit', post.postid]" *ngIf="userid==post.creatorid">
+                            <i class="fa fa-edit"></i></a>
+
+                        <!-- delete post. -->
+                        <!-- users only can delete them-self posts. They cannot delete posts of other authors  -->
+                        <a class="mr-1 text-danger" [routerLink]="['/post-edit', post.postid]" *ngIf="userid==post.creatorid">
+                            <i class="fa fa-trash"></i></a>
+
+
+                        <!-- creator email and createDatetime -->
                         <span class="text-muted">
                             <i>
                                 by {{post.creatorEmail}} on {{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}
@@ -26,3 +39,4 @@
         </div>
 
     </div>
+</div>

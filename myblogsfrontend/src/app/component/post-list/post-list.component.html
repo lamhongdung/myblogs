@@ -12,7 +12,19 @@
                     <!-- post -->
                     <div class="card-header">
                         <!-- title -->
-                        <span><b>{{post.title}}</b></span>
+                        <span class="mr-2"><b>{{post.title}}</b></span>
+
+                        <!-- edit post. -->
+                        <!-- users only can edit them-self posts. They cannot edit posts of other authors  -->
+                        <a class="mr-1 text-info" [routerLink]="['/post-edit', post.postid]"
+                            *ngIf="userid==post.creatorid">
+                            <i class="fa fa-edit"></i></a>
+
+                        <!-- delete post. -->
+                        <!-- users only can delete them-self posts. They cannot delete posts of other authors  -->
+                        <a class="mr-1 text-danger" [routerLink]="['/post-edit', post.postid]"
+                            *ngIf="userid==post.creatorid">
+                            <i class="fa fa-trash"></i></a>
 
                         <!-- comment datetime -->
                         <span class="float-right">{{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}</span>

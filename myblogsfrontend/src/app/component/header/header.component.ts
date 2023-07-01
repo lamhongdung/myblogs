@@ -11,9 +11,9 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  // user id(customer id).
-  // - userid = 0: customer has not yet logged in the system.
-  // - userid > 0: customer already logged in the system.
+  // user id.
+  // - userid = 0: user has not yet logged in the system.
+  // - userid > 0: user already logged in the system.
   userid: number = 0;
 
   // user email who has just logged in

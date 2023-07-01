@@ -4,6 +4,7 @@ import { NotifierService } from 'angular-notifier';
 import { NotificationType } from 'src/app/enum/NotificationType';
 import { CategorySidebar } from 'src/app/payload/CategorySidebar';
 import { PostSearchResponse } from 'src/app/payload/PostSearchResponse';
+import { AuthService } from 'src/app/service/auth.service';
 import { PostService } from 'src/app/service/post.service';
 import { environment } from 'src/environments/environment';
 
@@ -13,6 +14,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
+
+  // user id.
+  // - userid = 0: user has not yet logged in the system.
+  // - userid > 0: user already logged in the system.
+  userid: number = 0;
 
   // list of posts
   posts: PostSearchResponse[] = [];
@@ -44,13 +50,25 @@ export class PostListComponent implements OnInit {
   constructor(
 
     private notifierService: NotifierService,
-    private postService: PostService
+    private postService: PostService,
+    private authService: AuthService
 
   ) {
   }
 
   // ngOnInit() is similar to @PostConstruct
   ngOnInit() {
+
+    // get userid from local storage
+    this.userid = +this.authService.getIdFromLocalStorage();
+
+    // publish userid to all subscribers
+    this.authService.userid.next(this.userid);
+    // refresh value of userid
+    this.authService.userid
+      .subscribe(
+        data => this.userid = data
+      )
 
     // list of posts by category id
     this.searchPosts(this.thePageNumber, this.thePageSize, this.categoryid);
