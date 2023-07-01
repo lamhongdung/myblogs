@@ -43,7 +43,7 @@ public class UserController extends ExceptionHandling {
     @Autowired
     private JWTTokenProvider jwtTokenProvider;
 
-    // user logins to the myblogs system.
+    // user logins to the 'myblogs' system.
     // all users can access this end point "/login"
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody @Valid LoginUser loginUser,
@@ -88,7 +88,7 @@ public class UserController extends ExceptionHandling {
     // all users can access this end point "/user-create"
     @PostMapping("/user-create")
     public ResponseEntity<User> createUser(@RequestBody @Valid User user, BindingResult bindingResult)
-            throws BadDataException, MessagingException, BindException {
+            throws BadDataException, BindException {
 
         LOGGER.info("validate data");
 
@@ -112,7 +112,7 @@ public class UserController extends ExceptionHandling {
     @GetMapping("/user-list/{id}")
     // only authenticated users can access this end point "/user-list/{id}"
     // (it means this function findById())
-    @PreAuthorize("hasAnyRole('ROLE_CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity<User> findById(@PathVariable Long id) throws EntityNotFoundException {
 
         LOGGER.info("find user by id: " + id);
@@ -128,10 +128,10 @@ public class UserController extends ExceptionHandling {
     @PutMapping("/edit-profile")
     // only authenticated users can access this end point "/edit-profile"
     // (it means this function updateProfile())
-    @PreAuthorize("hasAnyRole('ROLE_CUSTOMER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     public ResponseEntity<User> updateProfile(@RequestBody @Valid EditProfile editProfile,
                                               BindingResult bindingResult)
-            throws MessagingException, EntityNotFoundException, BindException {
+            throws EntityNotFoundException, BindException {
 
         LOGGER.info("validate data");
 

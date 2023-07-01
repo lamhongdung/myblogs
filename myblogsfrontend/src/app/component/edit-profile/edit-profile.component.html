@@ -1,7 +1,7 @@
 <div class="text-center">
     <!-- title -->
     <h3>Edit profile</h3>
-    <hr width="700px">
+    <hr class="mx-auto" width="526px">
 </div>
 
 <!-- {{editProfileForm.value | json}} -->
@@ -13,14 +13,14 @@
         <div class="row mt-5">
 
             <!-- move column to central -->
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-6 offset-md-3">
                 <div class="container">
 
                     <!-- id -->
                     <div class="row mb-3">
                         <!-- label -->
                         <div class="col-3">
-                            <label class="col-form-label" for="email">
+                            <label class="col-form-label" for="id">
                                 Id<small>*</small>
                             </label>
                         </div>
@@ -118,24 +118,24 @@
                         </div>
                     </div>
 
-                    <!-- Shipping address -->
+                    <!-- address -->
                     <div class="row mb-3">
                         <!-- label -->
                         <div class="col-3">
-                            <label class="col-form-label" for="shippingAddress">
-                                Shipping address<small class="text-danger">*</small>
+                            <label class="col-form-label" for="address">
+                                Address<small class="text-danger">*</small>
                             </label>
                         </div>
                         <!-- textbox -->
                         <div class="col-9">
-                            <input class="form-control" type="text" formControlName="shippingAddress"
-                                placeholder="Shipping address" id="shippingAddress">
+                            <input class="form-control" type="text" formControlName="address"
+                                placeholder="Address" id="address">
                             <!-- error messages -->
-                            <div class="text-danger" *ngFor="let e of errorMessages.shippingAddress">
-                                <!-- errors on the "shippingAddress" field -->
-                                <div *ngIf="editProfileForm.get('shippingAddress')?.hasError(e.type) && 
-                                    (editProfileForm.get('shippingAddress')?.dirty || 
-                                    editProfileForm.get('shippingAddress')?.touched)">
+                            <div class="text-danger" *ngFor="let e of errorMessages.address">
+                                <!-- errors on the "address" field -->
+                                <div *ngIf="editProfileForm.get('address')?.hasError(e.type) && 
+                                    (editProfileForm.get('address')?.dirty || 
+                                    editProfileForm.get('address')?.touched)">
                                     <small>{{e.message}}</small>
                                 </div>
                             </div>
@@ -163,8 +163,8 @@
                 </button>
 
                 <!-- the "Cancel" button -->
-                <!-- re-direct to the "product-list" page -->
-                <button class="btn btn-dark" routerLink="/product-list" style="width: 150px">Cancel</button>
+                <!-- re-direct to the "post-list" page -->
+                <button class="btn btn-dark" routerLink="/post-list" style="width: 150px">Cancel</button>
             </div>
         </div>
     </form>

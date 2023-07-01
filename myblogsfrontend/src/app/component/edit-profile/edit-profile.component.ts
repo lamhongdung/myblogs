@@ -29,7 +29,7 @@ export class EditProfileComponent implements OnInit {
   //  - First name
   //  - Last name
   //  - Phone
-  //  - shippingAddress
+  //  - address
   editProfileForm!: FormGroup;
 
   // EditProfile payload
@@ -65,8 +65,7 @@ export class EditProfileComponent implements OnInit {
       { type: 'required', message: 'Please input phone number' },
       { type: 'pattern', message: 'Phone number must be 10 digits length' }
     ],
-    shippingAddress: [
-      { type: 'required', message: 'Please input shipping address' },
+    address: [
       { type: 'allWhitespace', message: 'Shipping address does not allow all white spaces' },
       { type: 'maxlength', message: 'Shipping address cannot be longer than 100 characters' }
     ]
@@ -90,7 +89,7 @@ export class EditProfileComponent implements OnInit {
     // the "+" sign: use to convert string to number
     this.userId = +this.authService.getIdFromLocalStorage();
 
-    // get user role
+    // get user role(ROLE_USER)
     this.userRole = this.authService.getRoleFromLocalStorage();
 
     // initial form
@@ -137,8 +136,8 @@ export class EditProfileComponent implements OnInit {
           [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(50)]],
         phone: ['',
           [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-        shippingAddress: ['',
-          [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(100)]],
+        address: ['',
+          [CustomValidator.allWhitespace, Validators.maxLength(100)]],
       }
     );
   } // end of initForm()
@@ -164,8 +163,8 @@ export class EditProfileComponent implements OnInit {
           // hide spinner(circle)
           this.showSpinner = false;
 
-          // re-direct to the "product-list" page
-          this.router.navigateByUrl("/product-list");
+          // re-direct to the "post-list" page
+          this.router.navigateByUrl("/post-list");
 
         },
 

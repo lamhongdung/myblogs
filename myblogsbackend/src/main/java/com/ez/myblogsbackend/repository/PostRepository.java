@@ -17,7 +17,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     // get all active categories and number of posts of each category
     @Query(value = "" +
-            " {call sp_post_numOfPostsPerCategory()} "
+            " {call sp_post_categorySidebar()} "
             , nativeQuery = true)
     public List<CategorySidebar> getAllActiveCategories();
 

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   // allow display spinner icon or not
   // =true: allow to display spinner in the "Login" button
   // =false: does not allow to display spinner in the "Login" button
-  public showSpinner: boolean | undefined;
+  public showSpinner: boolean = false;
 
   loginForm!: FormGroup;
   user: User | undefined;
@@ -46,10 +46,10 @@ export class LoginComponent implements OnInit {
     // initial form
     this.initForm();
 
-    // if user already logged-in before then navigate to '/product-list'
+    // if user already logged-in before then navigate to '/post-list'
     if (this.authService.isLoggedInUser()) {
 
-      // navigate to '/product-list';
+      // navigate to '/post-list';
       this.router.navigateByUrl(this.authService.urlAfterLogin);
 
     } else { // if user has not yet logged-in then re-direct to '/login'
@@ -79,55 +79,56 @@ export class LoginComponent implements OnInit {
     // allow to show spinner(circle)
     this.showSpinner = true;
 
-    // this.loginForm.value = { "email": "nguoiquantri01@gmail.com", "password": "abcxyz" }
-    this.authService.login(this.loginForm.value).subscribe({
+    // this.loginForm.value = { "email": "abc@gmail.com", "password": "abcxyz" }
+    this.authService.login(this.loginForm.value)
+      .subscribe({
 
-      // login successful.
-      // return: User and token
-      next: (response: HttpResponse<User>) => {
+        // login successful.
+        // return: User and token
+        next: (response: HttpResponse<User>) => {
 
-        // get token from the header response
-        const token = response.headers.get(HeaderType.JWT_TOKEN);
+          // get token from the header response
+          const token = response.headers.get(HeaderType.JWT_TOKEN);
 
-        // save token value into Local Storage
-        this.authService.saveTokenToLocalStorage(token!);
+          // save token value into Local Storage
+          this.authService.saveTokenToLocalStorage(token!);
 
-        // save user into Local Storage
-        this.authService.saveUserToLocalStorage(response.body!);
+          // save user into Local Storage
+          this.authService.saveUserToLocalStorage(response.body!);
 
-        // publish profileName to all subscribers
-        this.authService.getProfileName(
-          +this.authService.getIdFromLocalStorage(),
-          this.authService.getEmailFromLocalStorage());
+          // publish profileName to all subscribers
+          this.authService.getProfileName(
+            +this.authService.getIdFromLocalStorage(),
+            this.authService.getEmailFromLocalStorage());
 
-        // publish userid to all subscribers
-        this.authService.userid.next(+this.authService.getIdFromLocalStorage());
+          // publish userid to all subscribers
+          this.authService.userid.next(+this.authService.getIdFromLocalStorage());
 
-        // navigate to url '/product-list'
-        this.router.navigateByUrl(this.authService.urlAfterLogin);
+          // navigate to url '/post-list'
+          this.router.navigateByUrl(this.authService.urlAfterLogin);
 
-        // hide spinner(circle)
-        this.showSpinner = false;
+          // hide spinner(circle)
+          this.showSpinner = false;
 
-      },
-      // login failed
-      error: (errorResponse: HttpErrorResponse) => {
+        },
+        // login failed
+        error: (errorResponse: HttpErrorResponse) => {
 
-        // publish profileName to all subscribers
-        this.authService.getProfileName(
-          +this.authService.getIdFromLocalStorage(),
-          this.authService.getEmailFromLocalStorage());
+          // publish profileName to all subscribers
+          this.authService.getProfileName(
+            +this.authService.getIdFromLocalStorage(),
+            this.authService.getEmailFromLocalStorage());
 
-        // publish userid to all subscribers
-        this.authService.userid.next(+this.authService.getIdFromLocalStorage());
+          // publish userid to all subscribers
+          this.authService.userid.next(+this.authService.getIdFromLocalStorage());
 
-        // show error message
-        this.sendErrorNotification(NotificationType.ERROR, errorResponse.error.message);
+          // show error message
+          this.sendErrorNotification(NotificationType.ERROR, errorResponse.error.message);
 
-        // hide spinner icon(circle)
-        this.showSpinner = false;
-      }
-    });
+          // hide spinner icon(circle)
+          this.showSpinner = false;
+        }
+      });
 
   } // end of login()
 

@@ -21,10 +21,10 @@ public interface UserService {
     //  - null: not inactive user
     public User isInactiveUser(String email) throws BadDataException;
 
-    // create new customer(customer signs up account)
-    public User createUser(User user) throws MessagingException, BadDataException;
+    // create new user(user signs up account)
+    public User createUser(User user) throws BadDataException;
 
     // update user profile
-    public User updateProfile(EditProfile editProfile) throws MessagingException, EntityNotFoundException;
+    public User updateProfile(EditProfile editProfile) throws EntityNotFoundException;
 
 }

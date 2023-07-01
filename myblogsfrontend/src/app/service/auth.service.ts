@@ -15,7 +15,7 @@ export class AuthService {
   // apiUrl = 'http://localhost:8080'
   public host = environment.apiUrl;
 
-  // urlAfterLogin = '/blog-list'
+  // urlAfterLogin = '/post-list'
   public urlAfterLogin = environment.urlAfterLogin;
 
   public jwtHelper = new JwtHelperService();
