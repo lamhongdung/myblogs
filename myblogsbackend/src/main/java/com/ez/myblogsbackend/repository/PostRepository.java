@@ -2,6 +2,7 @@ package com.ez.myblogsbackend.repository;
 
 import com.ez.myblogsbackend.entity.Post;
 import com.ez.myblogsbackend.payload.CategorySidebar;
+import com.ez.myblogsbackend.payload.DropdownResponse;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,11 +16,24 @@ import java.util.List;
 @Transactional
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    // get all active categories and number of posts of each category
+    // get category sidebar(categories and their number of posts)
     @Query(value = "" +
             " {call sp_post_categorySidebar()} "
             , nativeQuery = true)
-    public List<CategorySidebar> getAllActiveCategories();
+    public List<CategorySidebar> getCategorySidebar();
+
+    // get all active categories.
+    // notes:
+    // interface DropdownResponse contains 2 fields:
+    //  - id: getId()
+    //  - description: getDescription()
+    @Query(value = "" +
+            " select a.id as id, " + // category id
+            "        concat(a.id, ' - ', a.name) as description " +
+            " from category a " +
+            " where a.status = 'Active' "
+            , nativeQuery = true)
+    public List<DropdownResponse> getAllActiveCategories();
 
     // get posts based on category id
     @Query(value = "" +

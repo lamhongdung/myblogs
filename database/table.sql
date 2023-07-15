@@ -36,9 +36,9 @@ create table `user` (
 ) engine=InnoDB auto_increment=2001 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
 
 insert into `user`(id, email, password, firstName, lastName, phone, address, role, status) values
-(11,'dunglh+customer1@gmail.com','$2a$12$CR0useg0GQlwrYMvylhHROZg0Vq5nr7jRILz14lc.ArB9iuw1wsEC','Quân','Châu', '0986009911','','ROLE_USER','Active'),
-(12,'dunglh+customer2@gmail.com','$2a$12$CR0useg0GQlwrYMvylhHROZg0Vq5nr7jRILz14lc.ArB9iuw1wsEC','Mễ','Tiểu', '0986009912','','ROLE_USER','Active'),
-(21,'dunglh+admin1@gmail.com','$2a$12$CR0useg0GQlwrYMvylhHROZg0Vq5nr7jRILz14lc.ArB9iuw1wsEC','Công Phượng','Nguyễn', '0986009921','','ROLE_ADMIN','Active');
+(11,'dunglh+user11@gmail.com','$2a$12$CR0useg0GQlwrYMvylhHROZg0Vq5nr7jRILz14lc.ArB9iuw1wsEC','Quân','Châu', '0986009911','','ROLE_USER','Active'),
+(12,'dunglh+user12@gmail.com','$2a$12$CR0useg0GQlwrYMvylhHROZg0Vq5nr7jRILz14lc.ArB9iuw1wsEC','Mễ','Tiểu', '0986009912','','ROLE_USER','Active'),
+(21,'dunglh+admin21@gmail.com','$2a$12$CR0useg0GQlwrYMvylhHROZg0Vq5nr7jRILz14lc.ArB9iuw1wsEC','Công Phượng','Nguyễn', '0986009921','','ROLE_ADMIN','Active');
 
 
 set foreign_key_checks = 1;

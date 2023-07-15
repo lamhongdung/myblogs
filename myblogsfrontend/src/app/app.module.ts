@@ -8,7 +8,6 @@ import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { EditProfileComponent } from './component/edit-profile/edit-profile.component';
 import { LoginComponent } from './component/login/login.component';
-// import { NotifierModule } from 'angular-notifier';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +18,7 @@ import { PostViewComponent } from './component/post-view/post-view.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationModule } from './notification.module';
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
   declarations: [
@@ -38,10 +38,10 @@ import { NotificationModule } from './notification.module';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    // NotifierModule,
     NotificationModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxEditorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

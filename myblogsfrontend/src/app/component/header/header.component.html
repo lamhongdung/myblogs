@@ -24,6 +24,14 @@
                         </a>
                     </li>
 
+                    <!-- New post -->
+                    <li class="nav-item active" *ngIf="userid > 0">
+                        <a class="nav-link" routerLink="/post-create" id="navbarContact" role="button"
+                            data-toggle="dropdown" aria-expanded="false">
+                            New post
+                        </a>
+                    </li>
+
                     <!-- Contact menu -->
                     <li class="nav-item active">
                         <a class="nav-link" routerLink="/contact" id="navbarContact" role="button"

@@ -5,6 +5,7 @@ import { EditProfileComponent } from './component/edit-profile/edit-profile.comp
 import { LoginComponent } from './component/login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 import { PostListComponent } from './component/post-list/post-list.component';
+import { PostCreateComponent } from './component/post-create/post-create.component';
 
 const routes: Routes = [
   // sign up
@@ -12,7 +13,14 @@ const routes: Routes = [
   // login
   { path: 'login', component: LoginComponent },
   { path: 'post-list', component: PostListComponent },
-  // edit profile. only user has already logged-in can edit profile
+  // create new post. only user has already logged-in can see 'New post' menu.
+  {
+    path: 'post-create', component: PostCreateComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_USER']
+    }
+  },
+  // edit profile. only user has already logged-in can see 'edit profile' menu.
   {
     path: 'edit-profile/:id', component: EditProfileComponent, canActivate: [AuthGuard],
     data: {

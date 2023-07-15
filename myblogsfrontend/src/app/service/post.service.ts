@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PostSearchResponse } from '../payload/PostSearchResponse';
 import { CategorySidebar } from '../payload/CategorySidebar';
+import { DropdownResponse } from '../payload/DropdownResponse';
+import { CustomHttpResponse } from '../payload/CustomHttpResponse';
+import { PostCreateRequest } from '../payload/PostCreateRequest';
+import { PostEditRequest } from '../payload/PostEditRequest';
+import { PostEditViewResponse } from '../payload/PostEditViewResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -17,26 +22,6 @@ export class PostService {
     private http: HttpClient
   ) { }
 
-  // // create new user(customer signs up account)
-  // public createUser(user: User): Observable<User> {
-
-  //   return this.http.post<User>(`${this.host}/user-create`, user);
-
-  // } // end of createUser()
-
-  // // update user profile
-  // public updateProfile(editProfile: EditProfile): Observable<User> {
-
-  //   return this.http.put<User>(`${this.host}/edit-profile`, editProfile);
-
-  // } // end of updateProfile()
-
-  // // find user by user id
-  // findById(id: number): Observable<User> {
-
-  //   return this.http.get<User>(`${this.host}/user-list/${id}`);
-
-  // } // end of findById()
 
   // get list of posts by category id
   searchPosts(pageNumber: number, pageSize: number, categoryid: number): Observable<PostSearchResponse[]> {
@@ -47,14 +32,35 @@ export class PostService {
 
   } // end of searchPosts()
 
-  // calculate total posts(total elements)
-  getTotalProducts(categoryid: number): Observable<number> {
+  // get all active categories
+  getAllActiveCategories(): Observable<DropdownResponse[]> {
 
-    return this.http.get<number>(
-      `${this.host}/post-total-elements?categoryid=${categoryid}`
-    );
+    return this.http.get<DropdownResponse[]>(
+      `${this.host}/category-active`
+    )
 
-  } // end of getTotalProducts()
+  } // end of getAllActiveCategories()
+
+  // create a new post
+  public createPost(postCreateRequest: PostCreateRequest): Observable<CustomHttpResponse> {
+
+    return this.http.post<CustomHttpResponse>(`${this.host}/post-create`, postCreateRequest);
+
+  } // end of createPost()
+
+  // edit an existing post
+  public editPost(postEditRequest: PostEditRequest): Observable<CustomHttpResponse> {
+
+    return this.http.put<CustomHttpResponse>(`${this.host}/post-edit`, postEditRequest);
+
+  } // end of editPost()
+
+  // find post by id
+  findById(id: number): Observable<PostEditViewResponse> {
+
+    return this.http.get<PostEditViewResponse>(`${this.host}/post-list/${id}`);
+
+  } // end of findById()
 
   // get number of posts of each category
   getCategoriesSidebar(): Observable<CategorySidebar[]> {

@@ -1,1 +1,124 @@
-<p>post-create works!</p>
+<div class="text-center">
+    <h3>Create post</h3>
+    <hr class="mx-auto" width="625px">
+</div>
+
+<!-- {{postForm.value | json}} -->
+
+<div class="container-fluid">
+
+    <!-- call createPost() when user clicks the "Publish" button -->
+    <form [formGroup]="postForm" (ngSubmit)="createPost()">
+
+        <div class="row mt-4">
+
+            <!-- move column to central -->
+            <div class="col-md-6 offset-md-3">
+                <div class="container-fluid">
+
+                    <!-- title -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="title">
+                                Title<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-10">
+                            <input class="form-control" type="text" formControlName="title"
+                                placeholder="Title. Cannot be longer than 100 characters." id="title">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.title">
+                                <div *ngIf="postForm.get('title')?.hasError(e.type) && 
+                                    (postForm.get('title')?.dirty || postForm.get('title')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- categoryid -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="categoryid">
+                                Category<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- dropdown -->
+                        <div class="col-10">
+                            <select id="categoryid" class="form-control" formControlName="categoryid"
+                                placeholder="Category">
+                                <option *ngFor="let e of categories" [value]="e.id">
+                                    {{e.description}}</option>
+                            </select>
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.categoryid">
+                                <div *ngIf="postForm.get('categoryid')?.hasError(e.type) && 
+                                    (postForm.get('categoryid')?.dirty || postForm.get('categoryid')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <!-- <div class="row mb-3"> -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="content">Content<small
+                                    class="text-danger">*</small></label>
+                        </div>
+                        <!-- rich text editor -->
+                        <div class="col-10" id="content">
+                            <div class="NgxEditor__Wrapper ngxEditor">
+                                <!-- menu -->
+                                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                                </ngx-editor-menu>
+                                <!-- editor -->
+                                <ngx-editor [editor]="editor" formControlName="content"
+                                    [placeholder]="'Enter your post here...'">
+                                </ngx-editor>
+                            </div>
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.content">
+                                <div *ngIf="postForm.get('content')?.hasError(e.type) && 
+                                    (postForm.get('content')?.dirty || postForm.get('content')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- buttons -->
+        <div class="d-flex justify-content-center">
+            <div>
+                <!-- the "Publish" button -->
+                <!-- if the form values are invalid then disable the "Publish" button -->
+                <button type="submit" [disabled]="postForm.invalid" style="width: 150px" class="btn btn-primary mr-2">
+
+                    <!-- display the spinner icon when press the "Publish" button -->
+                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
+                    <!-- Change label button "Publish" to "Publishing.." -->
+                    <span *ngIf="showSpinner">Publishing...</span>
+                    <!-- after publish the post then re-changes button name to "Publish" -->
+                    <span *ngIf="!showSpinner">Publish</span>
+
+                </button>
+
+                <!-- the "Cancel" button -->
+                <!-- re-direct to the "post-list" page -->
+                <button class="btn btn-dark" routerLink="/post-list" style="width: 150px">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

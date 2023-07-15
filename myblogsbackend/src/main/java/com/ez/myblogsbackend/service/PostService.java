@@ -1,6 +1,7 @@
 package com.ez.myblogsbackend.service;
 
 import com.ez.myblogsbackend.payload.CategorySidebar;
+import com.ez.myblogsbackend.payload.DropdownResponse;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import com.ez.myblogsbackend.repository.PostRepository;
 import org.slf4j.Logger;
@@ -17,14 +18,23 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    // get all active categories and number of posts of each category
-    public List<CategorySidebar> getAllActiveCategories() {
+    // get category sidebar(categories and their number of posts)
+    public List<CategorySidebar> getCategorySidebar() {
+
+        LOGGER.info("Get category sidebar)");
+
+        return postRepository.getCategorySidebar();
+
+    } // end of getCategorySidebar()
+
+    // get all active categories
+    public List<DropdownResponse> getAllActiveCategories() {
 
         LOGGER.info("Get all active categories)");
 
         return postRepository.getAllActiveCategories();
 
-    }
+    } // end of getAllActiveCategories()
 
     // search posts by category id.
     public List<PostSearchResponse> searchPosts(long pageNumber, long pageSize, long categoryid) {

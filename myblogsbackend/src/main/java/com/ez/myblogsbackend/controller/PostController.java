@@ -1,6 +1,7 @@
 package com.ez.myblogsbackend.controller;
 
 import com.ez.myblogsbackend.payload.CategorySidebar;
+import com.ez.myblogsbackend.payload.DropdownResponse;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import com.ez.myblogsbackend.service.PostService;
 import org.slf4j.Logger;
@@ -23,19 +24,33 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    // get categories sidebar(categories and their number of posts).
+    //
+    // all authenticated users can access this resource.
+    @GetMapping("/category-sidebar")
+    public ResponseEntity<List<CategorySidebar>> getCategorySidebar() {
+
+        // get all active categories
+        List<CategorySidebar> categoriesResponses = postService.getCategorySidebar();
+
+        return new ResponseEntity<>(categoriesResponses, OK);
+
+    } // end of getCategorySidebar()
+
     // get all active categories.
     // for loading categories in the "Category" dropdown control
     // in the "Create post", "Edit post" screens.
     //
     // all authenticated users can access this resource.
-    @GetMapping("/category-sidebar")
-    public ResponseEntity<List<CategorySidebar>> getAllActiveCategories() {
+    @GetMapping("/category-active")
+    public ResponseEntity<List<DropdownResponse>> getAllActiveCategories() {
 
         // get all active categories
-        List<CategorySidebar> categoriesResponses = postService.getAllActiveCategories();
+        List<DropdownResponse> categoriesResponses = postService.getAllActiveCategories();
 
         return new ResponseEntity<>(categoriesResponses, OK);
-    }
+
+    } // end of getAllActiveCategories()
 
     // search post based on category id
     // for loading posts in the "Post list" screen.
@@ -52,7 +67,8 @@ public class PostController {
                 postService.searchPosts(pageNumber, pageSize, categoryid);
 
         return new ResponseEntity<>(postResponses, OK);
-    }
+
+    } // end of searchPosts()
 //
 //    //
 //    // calculate total of tickets based on the search criteria.
