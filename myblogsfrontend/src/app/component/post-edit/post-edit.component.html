@@ -1,1 +1,183 @@
-<p>post-edit works!</p>
+<div class="text-center">
+    <h3>Edit post</h3>
+    <hr class="mx-auto" width="1000%">
+</div>
+
+<!-- {{postForm.value | json}} -->
+
+<div class="container-fluid">
+
+    <!-- post form -->
+    <form [formGroup]="postForm" (ngSubmit)="editPost()">
+
+        <div class="row">
+
+            <!-- the "Left" column -->
+            <div class="col-md-6">
+                <div class="container-fluid">
+
+                    <!-- title -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="title">
+                                Title<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="text" formControlName="title" id="title">
+                        </div>
+                    </div>
+
+                    <!-- categoryid -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="categoryid">
+                                Category<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- dropdown -->
+                        <div class="col-9">
+                            <select id="categoryid" class="form-control form-select" formControlName="categoryid">
+                                <option *ngFor="let e of categories" [value]="e.id">
+                                    {{e.description}}
+                                </option>
+                            </select>
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.categoryid">
+                                <div
+                                    *ngIf="postForm.get('categoryid')?.hasError(e.type) && 
+                                            (postForm.get('categoryid')?.dirty || postForm.get('categoryid')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="content">
+                                Content<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- rich text editor -->
+                        <div class="col-9">
+
+                            <div class="NgxEditor__Wrapper ngxEditor">
+                                <!-- menu -->
+                                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                                </ngx-editor-menu>
+                                <!-- editor -->
+                                <ngx-editor [editor]="editor" formControlName="content"
+                                    [placeholder]="'Enter your post here...'">
+                                </ngx-editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- the "Right" column -->
+            <div class="col-md-6">
+                <div class="container-fluid">
+
+                    <!-- post id -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="postid">
+                                Post ID<small>*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="text" formControlName="postid" id="postid" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Creator(id + email) -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="creatorName">
+                                Creator<small>*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="text" formControlName="creator" id="creator" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Create datetime -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="createDatetime">
+                                Created time<small>*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="text" formControlName="createDatetime" id="createDatetime"
+                                readonly>
+                        </div>
+                    </div>
+
+                    <!-- Last update datetime -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-3">
+                            <label class="col-form-label" for="lastUpdateDatetime">
+                                Updated time<small>*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-9">
+                            <input class="form-control" type="text" formControlName="lastUpdateDatetime"
+                                id="lastUpdateDatetime" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- buttons: "Save", "Delete" and "Cancel" -->
+        <div class="d-flex justify-content-center mb-3">
+            <div>
+
+                <!-- the "Save" button -->
+                <!-- if postForm is invalid then disabled the button "Save" -->
+                <button type="submit" [disabled]="postForm.invalid" style="width: 150px" class="btn btn-primary mr-2">
+                    <!-- show the spinner icon in the "Save" button -->
+                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
+                    <!-- Change label button "Save" to "Saving.." -->
+                    <span *ngIf="showSpinner">Saving...</span>
+                    <!-- after save finished then re-changes the button to "Save"  -->
+                    <span *ngIf="!showSpinner">Save</span>
+                </button>
+
+                <!-- the "Delete" button -->
+                <button type="submit" style="width: 150px" class="btn btn-danger mr-2">
+                    <!-- show the spinner icon in the "Delete" button -->
+                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
+                    <!-- Change label button "Delete" to "Deleting.." -->
+                    <span *ngIf="showSpinner">Deleting...</span>
+                    <!-- after delete finished then re-changes the button to "Delete"  -->
+                    <span *ngIf="!showSpinner">Delete</span>
+                </button>
+
+                <!-- the "Cancel" button -->
+                <!-- go back to the "post-list" page -->
+                <button class="btn btn-dark" routerLink="/post-list" style="width: 150px">Cancel</button>
+            </div>
+        </div>
+
+    </form> <!-- end of postForm -->
+
+</div>

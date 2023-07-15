@@ -3,6 +3,7 @@ package com.ez.myblogsbackend.repository;
 import com.ez.myblogsbackend.entity.Post;
 import com.ez.myblogsbackend.payload.CategorySidebar;
 import com.ez.myblogsbackend.payload.DropdownResponse;
+import com.ez.myblogsbackend.payload.PostEditViewResponse;
 import com.ez.myblogsbackend.payload.PostSearchResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -97,11 +98,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 //                           @Param("priorityid") long priorityid,
 //                           @Param("customFilename") String customFilename);
 //
-//    // get ticket by ticketid.
-//    @Query(value = "" +
-//            " {call sp_getTicketById(:ticketid)} "
-//            , nativeQuery = true)
-//    public TicketEditViewResponse getTicketById(@Param("ticketid") long ticketid);
+
+    // get post by postid.
+    @Query(value = "" +
+            " {call sp_post_getPostById(:postid)} "
+            , nativeQuery = true)
+    public PostEditViewResponse getPostById(@Param("postid") long postid);
+
 //
 ////    // update ticket
 ////    @Modifying

@@ -17,6 +17,9 @@ export class PostEditViewResponse {
         // post content
         public content: string,
 
+        // the post is created on this datetime
+        public createDatetime: Date,
+
         // last update date time
         public lastUpdateDatetime: Date,
 

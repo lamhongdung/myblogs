@@ -10,6 +10,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -125,19 +126,20 @@ public class PostController {
 
     } // end of createPost()
 
-//
-//    // find ticket by id.
-//    // this method is used for "Edit ticket" and "View ticket".
-//    @GetMapping("/ticket-list/{id}")
-//    public ResponseEntity<TicketEditViewResponse> getTicketById(@PathVariable Long id)
-//            throws EntityNotFoundException {
-//
-//        LOGGER.info("find ticket by id: " + id);
-//
-//        TicketEditViewResponse ticketEditViewResponse = ticketService.getTicketById(id);
-//
-//        return new ResponseEntity<>(ticketEditViewResponse, OK);
-//    }
+
+    // find post by id.
+    // this method is used for "Edit post" and "View post".
+    @GetMapping("/post-list/{id}")
+    public ResponseEntity<PostEditViewResponse> getPostById(@PathVariable Long id)
+            throws EntityNotFoundException {
+
+        LOGGER.info("find post by id: " + id);
+
+        PostEditViewResponse postEditViewResponse = postService.getPostById(id);
+
+        return new ResponseEntity<>(postEditViewResponse, OK);
+    } // end of getPostById()
+
 //
 //    // edit existing ticket.
 //    //

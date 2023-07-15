@@ -83,12 +83,11 @@ public class PostService {
 
     }
 
-//
-//    // get ticket by ticket id.
-//    public TicketEditViewResponse getTicketById(Long id) {
-//
-//        return ticketRepository.getTicketById(id);
-//    }
+    // get post by post id.
+    public PostEditViewResponse getPostById(Long id) {
+
+        return postRepository.getPostById(id);
+    }
 //
 //    // update existing ticket.
 //    public HttpResponse updateTicket(TicketEditRequest ticketEditRequest)
