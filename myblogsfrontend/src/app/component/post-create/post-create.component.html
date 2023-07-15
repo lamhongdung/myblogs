@@ -49,11 +49,12 @@
                         </div>
                         <!-- dropdown -->
                         <div class="col-10">
-                            <select id="categoryid" class="form-control" formControlName="categoryid"
-                                placeholder="Category">
+                            <select id="categoryid" class="form-control form-select" formControlName="categoryid">
                                 <option *ngFor="let e of categories" [value]="e.id">
-                                    {{e.description}}</option>
+                                    {{e.description}}
+                                </option>
                             </select>
+
                             <!-- error messages -->
                             <div class="text-danger" *ngFor="let e of errorMessages.categoryid">
                                 <div *ngIf="postForm.get('categoryid')?.hasError(e.type) && 
@@ -65,13 +66,15 @@
                         </div>
                     </div>
 
+
+
                     <!-- Content -->
-                    <!-- <div class="row mb-3"> -->
                     <div class="row mb-3">
                         <!-- label -->
                         <div class="col-2">
-                            <label class="col-form-label" for="content">Content<small
-                                    class="text-danger">*</small></label>
+                            <label class="col-form-label" for="content">
+                                Content<small class="text-danger">*</small>
+                            </label>
                         </div>
                         <!-- rich text editor -->
                         <div class="col-10" id="content">

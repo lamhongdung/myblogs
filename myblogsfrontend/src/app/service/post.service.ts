@@ -22,7 +22,6 @@ export class PostService {
     private http: HttpClient
   ) { }
 
-
   // get list of posts by category id
   searchPosts(pageNumber: number, pageSize: number, categoryid: number): Observable<PostSearchResponse[]> {
 

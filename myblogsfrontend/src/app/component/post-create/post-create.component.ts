@@ -18,8 +18,8 @@ import { PostService } from 'src/app/service/post.service';
 export class PostCreateComponent implements OnInit {
 
   // allow display spinner icon or not
-  // =true: allow to display spinner in the "Publish" button
-  // =false: do not allow to display spinner in the "Publish" button
+  // =true: allow to display "spinner" in the "Publish" button
+  // =false: do not allow to display "spinner" in the "Publish" button
   showSpinner: boolean = false;
 
   postForm!: FormGroup;
@@ -52,7 +52,9 @@ export class PostCreateComponent implements OnInit {
     // ['horizontal_rule', 'format_clear'],
   ];
 
-  // user who has logged in the system
+  // user id who has logged in the system.
+  // =0: Guest user.
+  // >0: specific user.
   userid: number = 0;
 
   // all active categories
@@ -69,8 +71,6 @@ export class PostCreateComponent implements OnInit {
 
   // this method ngOnInit() is run after the component "PostCreateComponent" is constructed
   ngOnInit(): void {
-
-    // console.log('oninit()');
 
     this.editor = new Editor();
 
@@ -92,20 +92,19 @@ export class PostCreateComponent implements OnInit {
       }
     );
 
-    // load posible values for dropdowns:
-    //  - categories
-    this.loadDropdownValues();
+    // load posible values for categories dropdowns:
+    this.loadCategoriesDropdown();
 
   } // end of ngOnInit()
 
-  // initialize default values for all dropdown controls
-  loadDropdownValues() {
+  // initialize default values for the categories dropdown
+  loadCategoriesDropdown() {
 
     // load all active categories into the "Category" dropdown
     this.loadAllActiveCategories();
 
 
-  } // end of loadDropdownValues()
+  } // end of loadCategoriesDropdown()
 
 
   // create post.

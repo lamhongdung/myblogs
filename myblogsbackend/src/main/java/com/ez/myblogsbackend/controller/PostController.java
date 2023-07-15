@@ -1,17 +1,16 @@
 package com.ez.myblogsbackend.controller;
 
-import com.ez.myblogsbackend.payload.CategorySidebar;
-import com.ez.myblogsbackend.payload.DropdownResponse;
-import com.ez.myblogsbackend.payload.PostSearchResponse;
+import com.ez.myblogsbackend.payload.*;
 import com.ez.myblogsbackend.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -31,9 +30,9 @@ public class PostController {
     public ResponseEntity<List<CategorySidebar>> getCategorySidebar() {
 
         // get all active categories
-        List<CategorySidebar> categoriesResponses = postService.getCategorySidebar();
+        List<CategorySidebar> categorySidebars = postService.getCategorySidebar();
 
-        return new ResponseEntity<>(categoriesResponses, OK);
+        return new ResponseEntity<>(categorySidebars, OK);
 
     } // end of getCategorySidebar()
 
@@ -46,9 +45,9 @@ public class PostController {
     public ResponseEntity<List<DropdownResponse>> getAllActiveCategories() {
 
         // get all active categories
-        List<DropdownResponse> categoriesResponses = postService.getAllActiveCategories();
+        List<DropdownResponse> activeCategories = postService.getAllActiveCategories();
 
-        return new ResponseEntity<>(categoriesResponses, OK);
+        return new ResponseEntity<>(activeCategories, OK);
 
     } // end of getAllActiveCategories()
 
@@ -99,31 +98,33 @@ public class PostController {
 //
 //        return new ResponseEntity<>(totalOfTickets, HttpStatus.OK);
 //    }
-//
-//    //
-//    // create a new ticket.
-//    //
-//    // all authenticated users can access this resource.
-//    @PostMapping("/ticket-create")
-//    public ResponseEntity<HttpResponse> createTicket(
-//            @RequestBody @Valid TicketCreateRequest ticketCreateRequest,
-//            BindingResult bindingResult) throws BindException {
-//
-//        LOGGER.info("validate data");
-//
-//        // if ticketRequest data is invalid then throw exception
-//        if (bindingResult.hasErrors()) {
-//
-//            LOGGER.info("TicketRequest data is invalid");
-//
-//            throw new BindException(bindingResult);
-//        }
-//
-//        // save ticket
-//        HttpResponse httpResponse = ticketService.createTicket(ticketCreateRequest);
-//
-//        return new ResponseEntity<>(httpResponse, OK);
-//    }
+
+    //
+    // create a new post.
+    //
+    // all authenticated users can access this resource.
+    @PostMapping("/post-create")
+    public ResponseEntity<HttpResponse> createPost(
+            @RequestBody @Valid PostCreateRequest postCreateRequest,
+            BindingResult bindingResult) throws BindException {
+
+        LOGGER.info("validate data");
+
+        // if postCreateRequest data is invalid then throw exception
+        if (bindingResult.hasErrors()) {
+
+            LOGGER.info("PostCreateRequest data is invalid");
+
+            throw new BindException(bindingResult);
+        }
+
+        // save post
+        HttpResponse httpResponse = postService.createPost(postCreateRequest);
+
+        return new ResponseEntity<>(httpResponse, OK);
+
+    } // end of createPost()
+
 //
 //    // find ticket by id.
 //    // this method is used for "Edit ticket" and "View ticket".

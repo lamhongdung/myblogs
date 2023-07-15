@@ -1,8 +1,7 @@
 package com.ez.myblogsbackend.service;
 
-import com.ez.myblogsbackend.payload.CategorySidebar;
-import com.ez.myblogsbackend.payload.DropdownResponse;
-import com.ez.myblogsbackend.payload.PostSearchResponse;
+import com.ez.myblogsbackend.entity.Post;
+import com.ez.myblogsbackend.payload.*;
 import com.ez.myblogsbackend.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Service
 public class PostService {
@@ -43,7 +44,7 @@ public class PostService {
 
         return postRepository.searchPosts(pageNumber, pageSize, categoryid);
 
-    }
+    } // end of searchPosts()
 //
 //    // calculate total of tickets based on the search criteria
 //    public long getTotalOfTickets(long userid,
@@ -61,25 +62,27 @@ public class PostService {
 //                ticketStatusid);
 //    }
 //
-//    // create a new ticket.
-//    public HttpResponse createTicket(TicketCreateRequest ticketCreateRequest) {
-//
-//        LOGGER.info("create a new ticket");
-//        LOGGER.info("Ticket is sent from client: " + ticketCreateRequest.toString());
-//
-//        // save new ticket into the "ticket" table in database.
-//        ticketRepository.saveTicket(
-//                ticketCreateRequest.getCreatorid(),
-//                ticketCreateRequest.getSubject(),
-//                ticketCreateRequest.getContent(),
-//                ticketCreateRequest.getTeamid(),
-//                ticketCreateRequest.getCategoryid(),
-//                ticketCreateRequest.getPriorityid(),
-//                ticketCreateRequest.getCustomFilename()
-//        );
-//
-//        return new HttpResponse(OK.value(), "Ticket is created successful!");
-//    }
+
+    // create a new post.
+    public HttpResponse createPost(PostCreateRequest postCreateRequest) {
+
+        LOGGER.info("create a new post");
+        LOGGER.info("Post is sent from client: " + postCreateRequest.toString());
+
+        Post post = new Post();
+        post.setCreatorid(postCreateRequest.getCreatorid());
+        post.setTitle(postCreateRequest.getTitle());
+        post.setCategoryid(postCreateRequest.getCategoryid());
+        post.setContent(postCreateRequest.getContent());
+        post.setPostStatusid(1);
+
+        // save new post into the "post" table in database.
+        postRepository.save(post);
+
+        return new HttpResponse(OK.value(), "Post is created successful!");
+
+    }
+
 //
 //    // get ticket by ticket id.
 //    public TicketEditViewResponse getTicketById(Long id) {
