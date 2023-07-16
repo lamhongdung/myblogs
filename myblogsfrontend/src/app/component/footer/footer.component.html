@@ -16,13 +16,15 @@
                         </a>
                         <!-- edit post. -->
                         <!-- users only can edit them-self posts. They cannot edit posts of other authors  -->
-                        <a class="mr-1 text-info" [routerLink]="['/post-edit', post.postid]" *ngIf="userid==post.creatorid">
+                        <a class="mr-1 text-info" [routerLink]="['/post-edit', post.postid]"
+                            *ngIf="userid==post.creatorid">
                             <i class="fa fa-edit"></i></a>
 
                         <!-- delete post. -->
                         <!-- users only can delete them-self posts. They cannot delete posts of other authors  -->
-                        <a class="mr-1 text-danger" [routerLink]="['/post-edit', post.postid]" *ngIf="userid==post.creatorid">
-                            <i class="fa fa-trash"></i></a>
+                        <a class="mr-1 text-danger pointer" (click)="deletePost(post.postid)" *ngIf="userid==post.creatorid">
+                            <i class="fa fa-trash"></i>
+                        </a>
 
 
                         <!-- creator email and createDatetime -->

@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationModule } from './notification.module';
 import { NgxEditorModule } from 'ngx-editor';
+import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/ngx-awesome-popup';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { NgxEditorModule } from 'ngx-editor';
     NotificationModule,
     NgbModule,
     NgxPaginationModule,
-    NgxEditorModule
+    NgxEditorModule,
+    NgxAwesomePopupModule.forRoot(), 
+    ConfirmBoxConfigModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

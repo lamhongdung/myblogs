@@ -33,9 +33,9 @@ public class Constant {
     public static final String NO_USER_FOUND_BY_ID = "No user found for id: ";
 
     //
-    // product constants
+    // Post constants
     //
-    public static final String NO_PRODUCT_FOUND_BY_ID = "No product found for id: ";
+    public static final String NO_POST_FOUND_BY_ID = "No post found for id: ";
 
 
 }

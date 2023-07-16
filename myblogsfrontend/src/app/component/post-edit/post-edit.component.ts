@@ -3,6 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ConfirmBoxEvokeService, ConfirmBoxInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
 import { NotifierService } from 'angular-notifier';
 import { Editor, Toolbar } from 'ngx-editor';
 import { NotificationType } from 'src/app/enum/NotificationType';
@@ -20,9 +21,14 @@ import { PostService } from 'src/app/service/post.service';
 export class PostEditComponent {
 
   // allow display spinner icon or not
-  // =true: allow to display spinner in the "Save" button
-  // =false: do not allow to display spinner in the "Save" button
-  showSpinner: boolean = false;
+  // =true: allow to display spinner in the "Publish" button
+  // =false: do not allow to display spinner in the "Publish" button
+  showSpinnerPublish: boolean = false;
+
+  // allow display spinner icon or not
+  // =true: allow to display spinner in the "Delete" button
+  // =false: do not allow to display spinner in the "Delete" button
+  showSpinnerDelete: boolean = false;
 
   postForm!: FormGroup;
 
@@ -68,12 +74,13 @@ export class PostEditComponent {
   ];
 
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private postService: PostService,
     private notifierService: NotifierService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService
+    private confirmBoxEvokeService: ConfirmBoxEvokeService
 
   ) {
 
@@ -171,13 +178,13 @@ export class PostEditComponent {
   } // end of loadCategoriesDropdown()
 
   // edit post.
-  // when user clicks the "Save" button in the "Edit post"
+  // when user clicks the "Publish" button in the "Edit post"
   editPost() {
 
     // allow to show spinner(circle)
-    this.showSpinner = true;
+    this.showSpinnerPublish = true;
 
-    // edit exsting post
+    // edit existing post
     this.postService.editPost(this.postForm.value).subscribe({
 
       // update post successful
@@ -187,21 +194,21 @@ export class PostEditComponent {
         this.sendNotification(NotificationType.SUCCESS, data.message);
 
         // hide spinner(circle)
-        this.showSpinner = false;
+        this.showSpinnerPublish = false;
 
         // after update post successful then navigate to the "post-list" page
         this.router.navigateByUrl("/post-list");
 
       },
 
-      // there are some errors when update ticket
+      // there are some errors when update post
       error: (errorResponse: HttpErrorResponse) => {
 
         // send failure message to user
         this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
 
         // hide spinner(circle)
-        this.showSpinner = false;
+        this.showSpinnerPublish = false;
       }
     });
 
@@ -235,6 +242,54 @@ export class PostEditComponent {
 
   } // end of loadAllActiveCategories()
 
+  // delete post
+  deletePost(postid: number) {
+
+    this.confirmBoxEvokeService.danger(
+      `Delete post`, `Do you want to delete the post with id = ${postid} ?`, `Yes`, `No`
+    )
+      .subscribe({
+
+        // user confirmed to delete
+        next: resp => {
+
+          if (resp.clickedButtonID == 'yes') {
+
+            this.showSpinnerDelete = true;
+
+            // delete exsting post
+            this.postService.deletePost(postid).subscribe({
+
+              // deleted post successful
+              next: (data: CustomHttpResponse) => {
+
+                // send notification to user
+                this.sendNotification(NotificationType.SUCCESS, data.message);
+
+                // hide spinner(circle)
+                this.showSpinnerDelete = false;
+
+                // after delete post successful then navigate to the "post-list" page
+                this.router.navigateByUrl("/post-list");
+
+              },
+
+              // there are some errors when delete post
+              error: (errorResponse: HttpErrorResponse) => {
+
+                // send failure message to user
+                this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+
+                // hide spinner(circle)
+                this.showSpinnerDelete = false;
+              }
+            });
+
+          }
+        }
+      });
+
+  } // end of deletePost()
 
   // send notification to user
   private sendNotification(notificationType: NotificationType, message: string): void {
@@ -246,6 +301,5 @@ export class PostEditComponent {
     }
 
   } // end of sendNotification()
-
 
 } // end of the PostEditComponent

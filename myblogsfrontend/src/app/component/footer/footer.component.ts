@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfirmBoxEvokeService } from '@costlydeveloper/ngx-awesome-popup';
 import { NotifierService } from 'angular-notifier';
 import { NotificationType } from 'src/app/enum/NotificationType';
 import { CategorySidebar } from 'src/app/payload/CategorySidebar';
+import { CustomHttpResponse } from 'src/app/payload/CustomHttpResponse';
 import { PostSearchResponse } from 'src/app/payload/PostSearchResponse';
 import { AuthService } from 'src/app/service/auth.service';
 import { PostService } from 'src/app/service/post.service';
@@ -52,7 +54,8 @@ export class FooterComponent implements OnInit {
 
     private notifierService: NotifierService,
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private confirmBoxEvokeService: ConfirmBoxEvokeService
 
   ) {
   }
@@ -105,28 +108,6 @@ export class FooterComponent implements OnInit {
         }
       });
 
-    // // get total posts(total elements)
-    // this.postService.getTotalPosts(categoryid)
-
-    //   .subscribe({
-
-    //     // get total posts successful
-    //     next: (data: number) => {
-
-    //       // total products
-    //       this.theTotalElements = data;
-
-    //     },
-
-    //     // there are some errors when get total posts
-    //     error: (errorResponse: HttpErrorResponse) => {
-
-    //       // show the error message to user
-    //       this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-
-    //     }
-    //   });
-
   } // end of searchPosts()
 
   // get number of posts of each category
@@ -173,18 +154,49 @@ export class FooterComponent implements OnInit {
 
   } // end of updatePageSize()
 
-  // add product to cart
-  // addToCart(theProduct: Product) {
+  // delete post
+  deletePost(postid: number) {
 
-  //   console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
+    this.confirmBoxEvokeService.danger(
+      `Delete post`, `Do you want to delete the post with id = ${postid} ?`, `Yes`, `No`
+    )
+      .subscribe({
 
-  //   // create new cartItem with quantity = 1
-  //   const theCartItem = new CartItem(theProduct);
+        // user confirmed to delete
+        next: resp => {
 
-  //   // add cartItem to cart
-  //   this.cartService.addToCart(theCartItem);
+          if (resp.clickedButtonID == 'yes') {
 
-  // } // end of addToCart()
+            // delete exsting post
+            this.postService.deletePost(postid).subscribe({
+
+              // deleted post successful
+              next: (data: CustomHttpResponse) => {
+
+                // send notification to user
+                this.sendNotification(NotificationType.SUCCESS, data.message);
+
+                // after delete post successful then navigate to the "post-list" page
+                // this.router.navigateByUrl("/post-list");
+                // this.ngOnInit();
+                window.location.reload();
+
+              },
+
+              // there are some errors when delete post
+              error: (errorResponse: HttpErrorResponse) => {
+
+                // send failure message to user
+                this.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+
+              }
+            });
+
+          }
+        }
+      });
+
+  } // end of deletePost()
 
   // send notification to user
   private sendNotification(notificationType: NotificationType, message: string): void {

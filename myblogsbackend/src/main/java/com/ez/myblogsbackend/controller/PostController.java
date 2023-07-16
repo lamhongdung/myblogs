@@ -1,11 +1,13 @@
 package com.ez.myblogsbackend.controller;
 
+import com.ez.myblogsbackend.exception.BadDataException;
 import com.ez.myblogsbackend.payload.*;
 import com.ez.myblogsbackend.service.PostService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -69,36 +71,6 @@ public class PostController {
         return new ResponseEntity<>(postResponses, OK);
 
     } // end of searchPosts()
-//
-//    //
-//    // calculate total of tickets based on the search criteria.
-//    // use this total of tickets value to calculate total pages for pagination.
-//    //
-//    // url: ex: /total-of-tickets?userid=20&searchTerm=&fromDate=2023-01-01&toDate=2023-03-28&categoryid=0&priorityid=0&creatorid=0&teamid=0&assigneeid=0&sla=&ticketStatusid=0
-//    //
-//    // all authenticated users can access this resource
-//    @GetMapping("/total-of-tickets")
-//    public ResponseEntity<Long> getTotalOfTickets(@RequestParam long userid,
-//                                                  @RequestParam String searchTerm,
-//                                                  @RequestParam String fromDate,
-//                                                  @RequestParam String toDate,
-//                                                  @RequestParam String categoryid,
-//                                                  @RequestParam String priorityid,
-//                                                  @RequestParam String creatorid,
-//                                                  @RequestParam String teamid,
-//                                                  @RequestParam String assigneeid,
-//                                                  @RequestParam String sla,
-//                                                  @RequestParam String ticketStatusid) {
-//
-//        // calculate total of tickets based on the search criteria
-//        long totalOfTickets = ticketService.getTotalOfTickets(userid,
-//                searchTerm, fromDate, toDate,
-//                categoryid, priorityid, creatorid,
-//                teamid, assigneeid, sla,
-//                ticketStatusid);
-//
-//        return new ResponseEntity<>(totalOfTickets, HttpStatus.OK);
-//    }
 
     //
     // create a new post.
@@ -126,7 +98,6 @@ public class PostController {
 
     } // end of createPost()
 
-
     // find post by id.
     // this method is used for "Edit post" and "View post".
     @GetMapping("/post-list/{id}")
@@ -140,30 +111,41 @@ public class PostController {
         return new ResponseEntity<>(postEditViewResponse, OK);
     } // end of getPostById()
 
-//
-//    // edit existing ticket.
-//    //
-//    @PutMapping("/ticket-edit")
-//    // only the ROLE_SUPPORTER or ROLE_ADMIN can access this address
-//    @PreAuthorize("hasAnyRole('ROLE_SUPPORTER','ROLE_ADMIN')")
-//    public ResponseEntity<HttpResponse> editTicket(
-//            @RequestBody @Valid TicketEditRequest ticketEditRequest, BindingResult bindingResult)
-//            throws EntityNotFoundException, BindException, BadDataException {
-//
-//        LOGGER.info("validate data");
-//
-//        // if ticketEditRequest data is invalid then throw exception
-//        if (bindingResult.hasErrors()) {
-//
-//            LOGGER.info("TicketEditRequest data is invalid");
-//
-//            throw new BindException(bindingResult);
-//        }
-//
-//        // update ticket with new values
-//        HttpResponse httpResponse = ticketService.updateTicket(ticketEditRequest);
-//
-//        return new ResponseEntity<>(httpResponse, OK);
-//    }
+
+    // edit existing post.
+    //
+    @PutMapping("/post-edit")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    public ResponseEntity<HttpResponse> editPost(
+            @RequestBody @Valid PostEditRequest postEditRequest, BindingResult bindingResult)
+            throws EntityNotFoundException, BindException, BadDataException {
+
+        LOGGER.info("validate data");
+
+        // if postEditRequest data is invalid then throw exception
+        if (bindingResult.hasErrors()) {
+
+            LOGGER.info("PostEditRequest data is invalid");
+
+            throw new BindException(bindingResult);
+        }
+
+        // update post with new values
+        HttpResponse httpResponse = postService.updatePost(postEditRequest);
+
+        return new ResponseEntity<>(httpResponse, OK);
+
+    } // end of editPost()
+
+    // delete a post
+    @DeleteMapping("/post-delete/{id}")
+    public ResponseEntity<HttpResponse> deletePost(@PathVariable Long id)
+            throws EntityNotFoundException {
+
+        HttpResponse httpResponse = postService.deletePost(id);
+
+        return new ResponseEntity<>(httpResponse, OK);
+
+    } // end of deletePostById()
 
 }

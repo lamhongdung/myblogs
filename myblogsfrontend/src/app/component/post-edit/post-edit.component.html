@@ -8,7 +8,8 @@
 <div class="container-fluid">
 
     <!-- post form -->
-    <form [formGroup]="postForm" (ngSubmit)="editPost()">
+    <!-- <form [formGroup]="postForm" (ngSubmit)="editPost()"> -->
+    <form [formGroup]="postForm">
 
         <div class="row">
 
@@ -147,29 +148,29 @@
             </div>
         </div>
 
-        <!-- buttons: "Save", "Delete" and "Cancel" -->
+        <!-- buttons: "Publish", "Delete" and "Cancel" -->
         <div class="d-flex justify-content-center mb-3">
             <div>
 
-                <!-- the "Save" button -->
-                <!-- if postForm is invalid then disabled the button "Save" -->
-                <button type="submit" [disabled]="postForm.invalid" style="width: 150px" class="btn btn-primary mr-2">
-                    <!-- show the spinner icon in the "Save" button -->
-                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
-                    <!-- Change label button "Save" to "Saving.." -->
-                    <span *ngIf="showSpinner">Saving...</span>
-                    <!-- after save finished then re-changes the button to "Save"  -->
-                    <span *ngIf="!showSpinner">Save</span>
+                <!-- the "Publish" button -->
+                <!-- if postForm is invalid then disabled the button "Publish" -->
+                <button (click)="editPost()" [disabled]="postForm.invalid" style="width: 150px" class="btn btn-primary mr-2">
+                    <!-- show the spinner icon in the "Publish" button -->
+                    <i *ngIf="showSpinnerPublish" class="fas fa-spinner fa-spin"></i>
+                    <!-- Change label button "Publish" to "Publishing.." -->
+                    <span *ngIf="showSpinnerPublish">Publishing...</span>
+                    <!-- after publish finished then re-changes the button to "Publish"  -->
+                    <span *ngIf="!showSpinnerPublish">Publish</span>
                 </button>
 
                 <!-- the "Delete" button -->
-                <button type="submit" style="width: 150px" class="btn btn-danger mr-2">
+                <button (click)="deletePost(postid)" style="width: 150px" class="btn btn-danger mr-2">
                     <!-- show the spinner icon in the "Delete" button -->
-                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
+                    <i *ngIf="showSpinnerDelete" class="fas fa-spinner fa-spin"></i>
                     <!-- Change label button "Delete" to "Deleting.." -->
-                    <span *ngIf="showSpinner">Deleting...</span>
+                    <span *ngIf="showSpinnerDelete">Deleting...</span>
                     <!-- after delete finished then re-changes the button to "Delete"  -->
-                    <span *ngIf="!showSpinner">Delete</span>
+                    <span *ngIf="!showSpinnerDelete">Delete</span>
                 </button>
 
                 <!-- the "Cancel" button -->

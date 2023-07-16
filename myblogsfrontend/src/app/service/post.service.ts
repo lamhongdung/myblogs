@@ -54,6 +54,13 @@ export class PostService {
 
   } // end of editPost()
 
+  // delete a post
+  public deletePost(id: number): Observable<CustomHttpResponse> {
+
+    return this.http.delete<CustomHttpResponse>(`${this.host}/post-delete/${id}`);
+
+  } // end of deletePost()
+
   // find post by id
   findById(id: number): Observable<PostEditViewResponse> {
 

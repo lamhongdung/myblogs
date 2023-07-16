@@ -22,9 +22,9 @@
 
                         <!-- delete post. -->
                         <!-- users only can delete them-self posts. They cannot delete posts of other authors  -->
-                        <a class="mr-1 text-danger" [routerLink]="['/post-edit', post.postid]"
-                            *ngIf="userid==post.creatorid">
-                            <i class="fa fa-trash"></i></a>
+                        <a class="mr-1 text-danger pointer" (click)="deletePost(post.postid)" *ngIf="userid==post.creatorid">
+                            <i class="fa fa-trash"></i>
+                        </a>
 
                         <!-- comment datetime -->
                         <span class="float-right">{{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
