@@ -38,10 +38,12 @@ select 	a.postid as postid,
         -- 2023-03-29 11:00:00
 		a.lastUpdateDatetime as lastUpdateDatetime,
 	
-		a.categoryid as categoryid
+		a.categoryid as categoryid,
+        coalesce(c.name,'') as categoryName
         
 from post a
 	left join user b on a.creatorid = b.id
+    left join category c on a.categoryid = c.id
 where a.postid = in_id;
 
 end $$

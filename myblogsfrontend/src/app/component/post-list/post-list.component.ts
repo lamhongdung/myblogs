@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ConfirmBoxEvokeService } from '@costlydeveloper/ngx-awesome-popup';
 import { NotifierService } from 'angular-notifier';
 import { NotificationType } from 'src/app/enum/NotificationType';
@@ -27,12 +27,16 @@ export class PostListComponent implements OnInit {
   posts: PostSearchResponse[] = [];
 
   // number of posts of each category
-  categoriesSidebar: CategorySidebar[] = [];
-  categorySidebar!: CategorySidebar;
+  sidebarMenu: CategorySidebar[] = [];
+  sidebarItem!: CategorySidebar;
 
-  // category id.
+  // current category id.
   // =0: means all categories.
-  categoryid: number = 0;
+  currentCategoryid: number = 0;
+
+  // previous category id.
+  // =0: means all categories.
+  previousCategoryid: number = 0;
 
   //
   // properties for pagination
@@ -50,8 +54,10 @@ export class PostListComponent implements OnInit {
   // total posts based on category id
   theTotalElements: number = 0;
 
+  hasCategoryid: boolean = false;
+
   constructor(
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private notifierService: NotifierService,
     private postService: PostService,
     private authService: AuthService,
@@ -74,13 +80,36 @@ export class PostListComponent implements OnInit {
         data => this.userid = data
       )
 
-    // list of posts by category id
-    this.searchPosts(this.thePageNumber, this.thePageSize, this.categoryid);
+    // when URL is changed then execute these commands
+    this.activatedRoute.paramMap
+      .subscribe(() => {
 
-    // categories sidebar
-    this.getCategoriesSidebar();
+        // check whether there is parameter 'id' in URL or not?
+        this.hasCategoryid = this.activatedRoute.snapshot.paramMap.has('id');
 
+        // if there is parameter 'id' in URL.
+        // it means user clicked on menu of 'Category sidebar'
+        if (this.hasCategoryid) {
 
+          // get the "id" param string. convert string to a number using the "+" symbol
+          this.currentCategoryid = +this.activatedRoute.snapshot.paramMap.get('id')!;
+
+          // if user changes category id
+          if (this.currentCategoryid != this.previousCategoryid) {
+            this.thePageNumber = 1;
+          }
+
+        }
+
+        console.log(`thePageNumber: ${this.thePageNumber}, thePageSize: ${this.thePageSize}, categoryid: ${this.currentCategoryid}`);
+
+        // list of posts by category id
+        this.searchPosts(this.thePageNumber, this.thePageSize, this.currentCategoryid);
+
+        // categories sidebar
+        this.getCategoriesSidebar();
+
+      });
 
   } // end of ngOnInit()
 
@@ -121,10 +150,10 @@ export class PostListComponent implements OnInit {
         // get list of posts by category id successful
         next: (data: CategorySidebar[]) => {
 
-          this.categoriesSidebar = data
+          this.sidebarMenu = data
 
-          this.categorySidebar = this.categoriesSidebar.find(tempCategorySidebar => tempCategorySidebar.id === this.categoryid)!;
-          this.theTotalElements = this.categorySidebar?.numOfPosts;
+          this.sidebarItem = this.sidebarMenu.find(tempCategorySidebar => tempCategorySidebar.id === this.currentCategoryid)!;
+          this.theTotalElements = this.sidebarItem?.numOfPosts;
           console.log(`theTotalElements: ${this.theTotalElements}`);
 
         },
@@ -150,7 +179,7 @@ export class PostListComponent implements OnInit {
     this.thePageNumber = 1;
 
     // search products
-    this.searchPosts(this.thePageNumber, this.thePageSize, this.categoryid)
+    this.searchPosts(this.thePageNumber, this.thePageSize, this.currentCategoryid)
 
   } // end of updatePageSize()
 
@@ -176,8 +205,7 @@ export class PostListComponent implements OnInit {
                 // send notification to user
                 this.sendNotification(NotificationType.SUCCESS, data.message);
 
-                // after delete post successful then navigate to the "post-list" page
-                // this.router.navigateByUrl("/post-list");
+                // reload the screen
                 window.location.reload();
 
               },

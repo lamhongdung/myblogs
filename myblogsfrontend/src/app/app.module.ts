@@ -20,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationModule } from './notification.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/ngx-awesome-popup';
+import { ContactComponent } from './component/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/
     PostCreateComponent,
     PostEditComponent,
     PostListComponent,
-    PostViewComponent
+    PostViewComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

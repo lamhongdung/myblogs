@@ -22,7 +22,8 @@
 
                         <!-- delete post. -->
                         <!-- users only can delete them-self posts. They cannot delete posts of other authors  -->
-                        <a class="mr-1 text-danger pointer" (click)="deletePost(post.postid)" *ngIf="userid==post.creatorid">
+                        <a class="mr-1 text-danger pointer" (click)="deletePost(post.postid)"
+                            *ngIf="userid==post.creatorid">
                             <i class="fa fa-trash"></i>
                         </a>
 
@@ -54,10 +55,9 @@
             <!-- categories sidebar -->
             <div class="col-md-3">
                 <h3>Categories</h3>
-                <ul *ngFor="let c of categoriesSidebar">
+                <ul *ngFor="let c of sidebarMenu">
                     <li>
-                        <a routerLink="/post-search?pageNumber=0&pageSize={{thePageSize}}&categoryid={{c.id}}"
-                            routerLinkActive="active-link">
+                        <a [routerLink]="['/category-sidebar', c.id]" routerLinkActive="active-link">
                             {{ c.name }} ({{c.numOfPosts}})
                         </a>
                     </li>
@@ -72,7 +72,7 @@
                 <!-- [boundaryLinks]="true": display <<(move first) and >>(move last). -->
                 <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"
                     [maxSize]="4" [boundaryLinks]="true"
-                    (pageChange)="searchPosts(thePageNumber,thePageSize,this.categoryid)">
+                    (pageChange)="searchPosts(thePageNumber,thePageSize,this.currentCategoryid)">
                 </ngb-pagination>
             </div>
 

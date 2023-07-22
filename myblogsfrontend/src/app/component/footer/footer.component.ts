@@ -176,9 +176,7 @@ export class FooterComponent implements OnInit {
                 // send notification to user
                 this.sendNotification(NotificationType.SUCCESS, data.message);
 
-                // after delete post successful then navigate to the "post-list" page
-                // this.router.navigateByUrl("/post-list");
-                // this.ngOnInit();
+                // reload the screen
                 window.location.reload();
 
               },

@@ -1,1 +1,59 @@
-<p>post-view works!</p>
+<div class="text-center">
+    <h3>View post</h3>
+    <hr class="mx-auto" width="650px">
+</div>
+
+<div class="container-fluid">
+
+    <!-- post list -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+
+                <!-- post -->
+                <div class="card mb-3">
+                    <!-- post -->
+                    <div class="card-header">
+                        <!-- title -->
+                        <span class="mr-2"><b>{{post.title}}</b></span>
+
+                        <!-- post datetime -->
+                        <span class="float-right">{{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                    </div>
+
+                    <!-- post content -->
+                    <div class="card-body">
+                        <p class="card-text" [innerHtml]="post.content"></p>
+                    </div>
+
+                    <!-- comment file + comment id -->
+                    <div class="card-footer bg-transparent">
+
+                        <span>
+                            {{post.categoryName}}
+                        </span>
+
+                        <span class="float-right">
+                            {{post.creator}}
+                        </span>
+                    </div>
+                </div>
+                <!-- end of card -->
+
+            </div>
+
+        </div>
+
+        <!-- buttons -->
+        <div class="d-flex justify-content-center">
+            <div>
+
+                <!-- the "Cancel" button -->
+                <!-- re-direct to the "post-list" page -->
+                <button class="btn btn-dark" routerLink="/post-list" style="width: 150px">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>

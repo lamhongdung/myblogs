@@ -5,11 +5,15 @@ export class PostEditViewResponse {
         // post id
         public postid: number,
 
+        public creator: string,
+
         // title
         public title: string,
 
         // category id
         public categoryid: number,
+        
+        public categoryName: string,
 
         // category id + category name
         public category: string,
