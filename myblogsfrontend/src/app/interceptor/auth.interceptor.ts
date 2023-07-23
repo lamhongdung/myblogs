@@ -25,6 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
       (httpRequest.url.includes(`${this.authService.host}/post-list`)) ||
       (httpRequest.url.includes(`${this.authService.host}/post-search`)) ||
       (httpRequest.url.includes(`${this.authService.host}/category-sidebar`)) ||
+      (httpRequest.url.includes(`${this.authService.host}/contact-send`)) ||
       (httpRequest.url.includes(`${this.authService.host}/post-total-elements`))
     ) {
 

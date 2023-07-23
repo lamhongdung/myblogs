@@ -3,15 +3,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { ConfirmBoxEvokeService, ConfirmBoxInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
+import { ConfirmBoxEvokeService } from '@costlydeveloper/ngx-awesome-popup';
 import { NotifierService } from 'angular-notifier';
 import { Editor, Toolbar } from 'ngx-editor';
 import { NotificationType } from 'src/app/enum/NotificationType';
 import { CustomHttpResponse } from 'src/app/payload/CustomHttpResponse';
 import { DropdownResponse } from 'src/app/payload/DropdownResponse';
 import { PostEditViewResponse } from 'src/app/payload/PostEditViewResponse';
-import { AuthService } from 'src/app/service/auth.service';
 import { PostService } from 'src/app/service/post.service';
+import { CustomValidator } from 'src/app/validator/CustomValidator';
 
 @Component({
   selector: 'app-post-edit',
@@ -46,13 +46,15 @@ export class PostEditComponent {
 
     title: [
       { type: 'required', message: 'Please input a title' },
+      { type: 'allWhitespace', message: 'Title does not allow all white spaces' },
       { type: 'maxlength', message: 'Title cannot be longer than 100 characters' },
     ],
     categoryid: [
       { type: 'required', message: 'Please select a category' }
     ],
     content: [
-      { type: 'required', message: 'Please input a content' }
+      { type: 'required', message: 'Please input a content' },
+      { type: 'allWhitespace', message: 'Content does not allow all white spaces' }
     ],
 
   };
@@ -100,9 +102,9 @@ export class PostEditComponent {
         // creator id + email
         creator: [''],
 
-        title: [''],
+        title: ['', [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(100)]],
 
-        content: [''],
+        content: ['', [Validators.required, CustomValidator.allWhitespace]],
 
         // Post was created on this datetime
         createDatetime: [''],

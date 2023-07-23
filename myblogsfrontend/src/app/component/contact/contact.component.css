@@ -1,6 +1,6 @@
 /* rich text editor 'ngx-editor' */
 
 .ngxEditor {
-    height: 250px;
+    height: 200px;
     overflow-y: scroll;
 }

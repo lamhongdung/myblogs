@@ -78,6 +78,14 @@
                                     [placeholder]="'Enter your post here...'">
                                 </ngx-editor>
                             </div>
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.content">
+                                <div *ngIf="postForm.get('content')?.hasError(e.type) && 
+                                    (postForm.get('content')?.dirty || postForm.get('content')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -154,7 +162,8 @@
 
                 <!-- the "Publish" button -->
                 <!-- if postForm is invalid then disabled the button "Publish" -->
-                <button (click)="editPost()" [disabled]="postForm.invalid" style="width: 150px" class="btn btn-primary mr-2">
+                <button (click)="editPost()" [disabled]="postForm.invalid" style="width: 150px"
+                    class="btn btn-primary mr-2">
                     <!-- show the spinner icon in the "Publish" button -->
                     <i *ngIf="showSpinnerPublish" class="fas fa-spinner fa-spin"></i>
                     <!-- Change label button "Publish" to "Publishing.." -->

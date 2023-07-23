@@ -9,6 +9,7 @@ import { CustomHttpResponse } from 'src/app/payload/CustomHttpResponse';
 import { DropdownResponse } from 'src/app/payload/DropdownResponse';
 import { AuthService } from 'src/app/service/auth.service';
 import { PostService } from 'src/app/service/post.service';
+import { CustomValidator } from 'src/app/validator/CustomValidator';
 
 @Component({
   selector: 'app-post-create',
@@ -28,13 +29,15 @@ export class PostCreateComponent implements OnInit {
   errorMessages = {
     title: [
       { type: 'required', message: 'Please input a title' },
+      { type: 'allWhitespace', message: 'Title does not allow all white spaces' },
       { type: 'maxlength', message: 'Title cannot be longer than 100 characters' },
     ],
     categoryid: [
       { type: 'required', message: 'Please select a category' }
     ],
     content: [
-      { type: 'required', message: 'Please input a content' }
+      { type: 'required', message: 'Please input a content' },
+      { type: 'allWhitespace', message: 'Content does not allow all white spaces' }
     ],
   };
 
@@ -81,13 +84,13 @@ export class PostCreateComponent implements OnInit {
         creatorid: [+this.authService.getIdFromLocalStorage()],
 
         // required and max length = 100 characters
-        title: ['', [Validators.required, Validators.maxLength(100)]],
+        title: ['', [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(100)]],
 
         // required
         categoryid: ['', [Validators.required]],
 
         // required
-        content: ['', [Validators.required]],
+        content: ['', [Validators.required, CustomValidator.allWhitespace]],
 
       }
     );

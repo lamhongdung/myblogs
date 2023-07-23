@@ -1,1 +1,173 @@
-<p>contact works!</p>
+<div class="text-center">
+    <h3>Contact</h3>
+    <hr class="mx-auto" width="100%">
+</div>
+
+<!-- {{contactForm.value | json}} -->
+
+<div class="container-fluid">
+
+    <!-- call createPost() when user clicks the "Publish" button -->
+    <form [formGroup]="contactForm">
+
+        <div class="row">
+
+            <!-- the "Left" column -->
+            <div class="col-md-6">
+                <div class="container-fluid">
+
+                    <!-- name -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="name">
+                                Name<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-10">
+                            <input class="form-control" type="text" formControlName="name" id="name">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.name">
+                                <div *ngIf="contactForm.get('name')?.hasError(e.type) && 
+                                    (contactForm.get('name')?.dirty || contactForm.get('name')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- email -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="email">
+                                Email<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-10">
+                            <input class="form-control" type="text" formControlName="email" id="email">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.email">
+                                <div *ngIf="contactForm.get('email')?.hasError(e.type) && 
+                                    (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- phone -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="phone">
+                                Phone<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-10">
+                            <input class="form-control" type="text" formControlName="phone" id="phone">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.phone">
+                                <div *ngIf="contactForm.get('phone')?.hasError(e.type) && 
+                                    (contactForm.get('phone')?.dirty || contactForm.get('phone')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- company -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="company">
+                                Company<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- textbox -->
+                        <div class="col-10">
+                            <input class="form-control" type="text" formControlName="company" id="company">
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.company">
+                                <div
+                                    *ngIf="contactForm.get('company')?.hasError(e.type) && 
+                                                        (contactForm.get('company')?.dirty || contactForm.get('company')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- the "Right" column -->
+            <div class="col-md-6">
+                <div class="container-fluid">
+
+                    <!-- Message -->
+                    <div class="row mb-3">
+                        <!-- label -->
+                        <div class="col-2">
+                            <label class="col-form-label" for="message">
+                                Message<small class="text-danger">*</small>
+                            </label>
+                        </div>
+                        <!-- rich text editor -->
+                        <div class="col-10">
+
+                            <div class="NgxEditor__Wrapper ngxEditor">
+                                <!-- menu -->
+                                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                                </ngx-editor-menu>
+                                <!-- editor -->
+                                <ngx-editor [editor]="editor" formControlName="message"
+                                    [placeholder]="'Enter your message here...'">
+                                </ngx-editor>
+                            </div>
+                            <!-- error messages -->
+                            <div class="text-danger" *ngFor="let e of errorMessages.message">
+                                <div *ngIf="contactForm.get('message')?.hasError(e.type) && 
+                                    (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)">
+
+                                    <small>{{e.message}}</small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- buttons: "Send" -->
+        <div class="d-flex justify-content-center mb-3">
+            <div>
+
+                <!-- the "Send" button -->
+                <!-- if postForm is invalid then disabled the button "Publish" -->
+                <button (click)="sendContact()" [disabled]="contactForm.invalid" style="width: 150px"
+                    class="btn btn-primary mr-2">
+                    <!-- show the spinner icon in the "Publish" button -->
+                    <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
+                    <!-- Change label button "Publish" to "Publishing.." -->
+                    <span *ngIf="showSpinner">Sending...</span>
+                    <!-- after publish finished then re-changes the button to "Publish"  -->
+                    <span *ngIf="!showSpinner">Send</span>
+                </button>
+
+                <!-- the "Cancel" button -->
+                <!-- go back to the "post-list" page -->
+                <button class="btn btn-dark" routerLink="/post-list" style="width: 150px">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

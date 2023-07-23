@@ -134,5 +134,29 @@ INSERT INTO `post` VALUES
 
 set foreign_key_checks = 1;
 
+-- -----------------------------------------------------
+-- Table `contact`
+-- -----------------------------------------------------
+
+set foreign_key_checks = 0;
+
+drop table if exists `contact`;
+
+create table `contact` (
+
+	`id` int not null auto_increment,
+	`name` varchar(255) not null,
+	`email` varchar(255) not null,
+	`phone` varchar(255) not null,
+	`company` varchar(255) not null,
+	`message` text not null,
+    -- 
+	`createDatetime` datetime not null,
+	`lastUpdateDatetime` datetime not null,
+    
+	primary key (`id`)
+  
+) engine=InnoDB auto_increment=2001 default charset=utf8mb4 collate=utf8mb4_0900_ai_ci;
+
 
 
