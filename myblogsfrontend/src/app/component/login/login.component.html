@@ -65,7 +65,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -78,8 +77,8 @@
 
                     <!-- display the spinner icon when press the "Login" button -->
                     <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
-                    <!-- Change label button "Login" to "Loading..." -->
-                    <span *ngIf="showSpinner">Loading...</span>
+                    <!-- Change label button "Login" to "Logging in..." -->
+                    <span *ngIf="showSpinner">Logging in...</span>
                     <!-- after finish loading then re-changes button name to "Login" -->
                     <span *ngIf="!showSpinner">Login</span>
 

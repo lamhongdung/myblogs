@@ -36,8 +36,8 @@ export class PostCreateComponent implements OnInit {
       { type: 'required', message: 'Please select a category' }
     ],
     content: [
-      { type: 'required', message: 'Please input a content' },
-      { type: 'allWhitespace', message: 'Content does not allow all white spaces' }
+      { type: 'required', message: 'Please input a content' }
+      // { type: 'allWhitespace', message: 'Content does not allow all white spaces' }
     ],
   };
 
@@ -80,7 +80,7 @@ export class PostCreateComponent implements OnInit {
     // initial form
     this.postForm = this.formBuilder.group(
       {
-        // person creates post
+        // those who creates post
         creatorid: [+this.authService.getIdFromLocalStorage()],
 
         // required and max length = 100 characters
@@ -90,7 +90,7 @@ export class PostCreateComponent implements OnInit {
         categoryid: ['', [Validators.required]],
 
         // required
-        content: ['', [Validators.required, CustomValidator.allWhitespace]],
+        content: ['', [Validators.required]],
 
       }
     );

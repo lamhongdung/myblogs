@@ -25,6 +25,7 @@ public interface PostEditViewResponse {
     // "categoryid" column
     long getCategoryid();
 
+    // "categoryName" column
     public String getCategoryName();
 
 }

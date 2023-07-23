@@ -14,7 +14,7 @@ public class Constant {
     public static final String ACCESS_DENIED_MESSAGE = "You do not have permission to access this page";
     public static final String OPTIONS_HTTP_METHOD = "OPTIONS";
 
-    // these end points do not authenticate
+    // these "end points" do not authenticate
     //    public static final String[] PUBLIC_URLS = { "**" };
     public static final String[] PUBLIC_URLS = {
             "/login",

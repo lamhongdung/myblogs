@@ -17,7 +17,7 @@ public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
 
-    // create a new post.
+    // create a new contact.
     public HttpResponse saveContact(Contact contact) {
 
         LOGGER.info("send new contact");
@@ -30,7 +30,7 @@ public class ContactService {
         newContact.setCompany(contact.getCompany());
         newContact.setMessage(contact.getMessage());
 
-        // save new post into the "post" table in database.
+        // save new contact into the "contact" table in database.
         contactRepository.save(newContact);
 
         return new HttpResponse(OK.value(), "Contact is created successful!");

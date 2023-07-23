@@ -66,8 +66,8 @@ export class EditProfileComponent implements OnInit {
       { type: 'pattern', message: 'Phone number must be 10 digits length' }
     ],
     address: [
-      { type: 'allWhitespace', message: 'Shipping address does not allow all white spaces' },
-      { type: 'maxlength', message: 'Shipping address cannot be longer than 100 characters' }
+      { type: 'allWhitespace', message: 'Address does not allow all white spaces' },
+      { type: 'maxlength', message: 'Address cannot be longer than 100 characters' }
     ]
   };
 

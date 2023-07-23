@@ -27,7 +27,7 @@
                             <i class="fa fa-trash"></i>
                         </a>
 
-                        <!-- comment datetime -->
+                        <!-- Post datetime -->
                         <span class="float-right">{{post.createDatetime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                     </div>
 
@@ -36,13 +36,15 @@
                         <p class="card-text" [innerHtml]="post.content"></p>
                     </div>
 
-                    <!-- comment file + comment id -->
+                    <!-- "category name" and "creator email" -->
                     <div class="card-footer bg-transparent">
 
+                        <!-- category name -->
                         <span>
                             {{post.categoryName}}
                         </span>
 
+                        <!-- creator email -->
                         <span class="float-right">
                             {{post.creatorEmail}}
                         </span>
@@ -52,7 +54,8 @@
 
             </div>
 
-            <!-- categories sidebar -->
+            <!-- sidebar menu. -->
+            <!-- categories sidebar. -->
             <div class="col-md-3">
                 <h3>Categories</h3>
                 <ul *ngFor="let c of sidebarMenu">
@@ -68,7 +71,7 @@
         <div class="row">
             <!-- pagination -->
             <div class="col-md-6">
-                <!-- [maxSize]="5": only display up to 6 numbers(6 buttons on pagination bar). -->
+                <!-- [maxSize]="4": only display up to 5 numbers(5 buttons on pagination bar). -->
                 <!-- [boundaryLinks]="true": display <<(move first) and >>(move last). -->
                 <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize" [collectionSize]="theTotalElements"
                     [maxSize]="4" [boundaryLinks]="true"

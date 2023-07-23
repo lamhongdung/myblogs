@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
         data => this.profileName = data
       )
 
-    console.log("userid:" + this.userid);
+    // console.log("userid:" + this.userid);
 
   } // end of ngOnInit()
 
@@ -82,8 +82,8 @@ export class HeaderComponent implements OnInit {
         data => this.profileName = data
       )
 
-    // navigate to '/product-list'
-    this.router.navigate(['/product-list']);
+    // navigate to '/post-list'
+    this.router.navigate(['/post-list']);
 
     // show "Logout message" to user
     this.sendNotification(NotificationType.SUCCESS, "You have just logged out!");

@@ -53,8 +53,8 @@ export class PostEditComponent {
       { type: 'required', message: 'Please select a category' }
     ],
     content: [
-      { type: 'required', message: 'Please input a content' },
-      { type: 'allWhitespace', message: 'Content does not allow all white spaces' }
+      { type: 'required', message: 'Please input a content' }
+      // { type: 'allWhitespace', message: 'Content does not allow all white spaces' }
     ],
 
   };
@@ -104,12 +104,12 @@ export class PostEditComponent {
 
         title: ['', [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(100)]],
 
-        content: ['', [Validators.required, CustomValidator.allWhitespace]],
+        content: ['', [Validators.required]],
 
         // Post was created on this datetime
         createDatetime: [''],
 
-        // last time ticket was updated
+        // last time the post was updated
         lastUpdateDatetime: [''],
 
         // required and value must be >= 1
@@ -255,11 +255,12 @@ export class PostEditComponent {
         // user confirmed to delete
         next: resp => {
 
+          // if user clicks on the 'Yes' button
           if (resp.clickedButtonID == 'yes') {
 
             this.showSpinnerDelete = true;
 
-            // delete exsting post
+            // delete existing post
             this.postService.deletePost(postid).subscribe({
 
               // deleted post successful

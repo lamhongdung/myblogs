@@ -97,11 +97,14 @@ export class PostListComponent implements OnInit {
           // if user changes category id
           if (this.currentCategoryid != this.previousCategoryid) {
             this.thePageNumber = 1;
+
+            this.previousCategoryid = this.currentCategoryid;
+
           }
 
         }
 
-        console.log(`thePageNumber: ${this.thePageNumber}, thePageSize: ${this.thePageSize}, categoryid: ${this.currentCategoryid}`);
+        // console.log(`thePageNumber: ${this.thePageNumber}, thePageSize: ${this.thePageSize}, categoryid: ${this.currentCategoryid}`);
 
         // list of posts by category id
         this.searchPosts(this.thePageNumber, this.thePageSize, this.currentCategoryid);
@@ -128,7 +131,7 @@ export class PostListComponent implements OnInit {
 
         },
 
-        // there are some errors when get products
+        // there are some errors when get posts
         error: (errorResponse: HttpErrorResponse) => {
 
           // show the error message to user
@@ -152,13 +155,17 @@ export class PostListComponent implements OnInit {
 
           this.sidebarMenu = data
 
+          // get current category
           this.sidebarItem = this.sidebarMenu.find(tempCategorySidebar => tempCategorySidebar.id === this.currentCategoryid)!;
+
+          // get total posts of current category
           this.theTotalElements = this.sidebarItem?.numOfPosts;
-          console.log(`theTotalElements: ${this.theTotalElements}`);
+
+          // console.log(`theTotalElements: ${this.theTotalElements}`);
 
         },
 
-        // there are some errors when get products
+        // there are some errors when get posts
         error: (errorResponse: HttpErrorResponse) => {
 
           // show the error message to user
@@ -178,7 +185,7 @@ export class PostListComponent implements OnInit {
     // reset page number to 1
     this.thePageNumber = 1;
 
-    // search products
+    // search posts
     this.searchPosts(this.thePageNumber, this.thePageSize, this.currentCategoryid)
 
   } // end of updatePageSize()
@@ -194,9 +201,10 @@ export class PostListComponent implements OnInit {
         // user confirmed to delete
         next: resp => {
 
+          // if user clicks on the 'Yes' button
           if (resp.clickedButtonID == 'yes') {
 
-            // delete exsting post
+            // delete existing post
             this.postService.deletePost(postid).subscribe({
 
               // deleted post successful
@@ -236,4 +244,4 @@ export class PostListComponent implements OnInit {
 
   } // end of sendNotification()
 
-} // end of class ProductListComponent
+} // end of class PostListComponent

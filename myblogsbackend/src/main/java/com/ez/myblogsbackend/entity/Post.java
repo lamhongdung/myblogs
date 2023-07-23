@@ -35,10 +35,9 @@ public class Post implements Serializable {
     private long creatorid;
 
     // postStatusid:
-    // - 1: Draft
-    // - 2: Published
-    @Min(value = 1, message = "Value of post status id must be greater than or equal to 1")
-    @Max(value = 5, message = "Value of post status id must be less than or equal to 2")
+    // - 1: Published
+    @Min(value = 1, message = "Value of post status id must be 1")
+    @Max(value = 1, message = "Value of post status id must be 1")
     // note: we cannot use @Pattern to validate because this @Pattern only apply for string,
     // datatype of postStatusid is 'long', so we cannot use @Pattern
     private long postStatusid;

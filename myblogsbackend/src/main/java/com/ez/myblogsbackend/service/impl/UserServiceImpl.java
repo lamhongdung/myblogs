@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     } // end of existEmail()
 
-    // encode password
+    // encrypt password
     private String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }

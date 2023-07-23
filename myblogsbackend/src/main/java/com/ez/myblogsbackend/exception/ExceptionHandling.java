@@ -54,7 +54,8 @@ public class ExceptionHandling implements ErrorController {
             errorMessage = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
 
         return createHttpResponse(BAD_REQUEST, errorMessage);
-    }
+
+    } // end of handleBindException()
 
     //
     @ExceptionHandler(AccessDeniedException.class)
@@ -68,7 +69,7 @@ public class ExceptionHandling implements ErrorController {
     }
 
     // handle errors of invalid data.
-    // these errors are caught own developer.
+    // these errors are caught by self-developer.
     @ExceptionHandler(BadDataException.class)
     public ResponseEntity<HttpResponse> badDataException(BadDataException exception) {
         return createHttpResponse(BAD_REQUEST, exception.getMessage());
@@ -83,24 +84,32 @@ public class ExceptionHandling implements ErrorController {
     // wrong request method.
     // ex: proper request method is "POST" but user sends "GET" method
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
-        HttpMethod supportedMethod = Objects.requireNonNull(exception.getSupportedHttpMethods()).iterator().next();
+    public ResponseEntity<HttpResponse> methodNotSupportedException
+    (HttpRequestMethodNotSupportedException exception) {
+
+        HttpMethod supportedMethod =
+                Objects.requireNonNull(exception.getSupportedHttpMethods()).iterator().next();
 
         // "This request method is not allowed on this endpoint. Please send a '%s' request"
         // Pass supportedMethod(POST, GET,...) into param %s
         return createHttpResponse(METHOD_NOT_ALLOWED, String.format(METHOD_IS_NOT_ALLOWED, supportedMethod));
-    }
+
+    } // end of methodNotSupportedException()
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<HttpResponse> internalServerErrorException(Exception exception) {
+
         LOGGER.info(exception.getMessage());
         return createHttpResponse(INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_MSG);
+
     }
 
     @ExceptionHandler(NoResultException.class)
     public ResponseEntity<HttpResponse> notFoundException(NoResultException exception) {
+
         LOGGER.info(exception.getMessage());
         return createHttpResponse(NOT_FOUND, exception.getMessage());
+
     }
 
     private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
@@ -112,7 +121,9 @@ public class ExceptionHandling implements ErrorController {
     // handle for bad URL(error of "Whitelabel error page")
     @RequestMapping(ERROR_PATH)
     public ResponseEntity<HttpResponse> notFound404() {
+
         return createHttpResponse(NOT_FOUND, "There is no mapping for this URL");
+
     }
 
     //

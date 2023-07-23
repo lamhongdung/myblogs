@@ -37,14 +37,14 @@ public class Contact {
     @Size(min = 1, max = 100, message = "Length of the company name must be between 1 and 100 characters")
     private String company;
 
-    @Size(min = 1, message = "Please input a content")
+    @Size(min = 1, message = "Please input a message")
     private String message;
 
-    // post is created on this datetime
+    // the contact is created on this datetime
     @CreationTimestamp
     private Date createDatetime;
 
-    // last date time post is updated
+    // last date time the contact is updated
     @UpdateTimestamp
     private Date lastUpdateDatetime;
 

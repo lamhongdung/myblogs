@@ -22,10 +22,10 @@
 
                         <!-- delete post. -->
                         <!-- users only can delete them-self posts. They cannot delete posts of other authors  -->
-                        <a class="mr-1 text-danger pointer" (click)="deletePost(post.postid)" *ngIf="userid==post.creatorid">
+                        <a class="mr-1 text-danger pointer" (click)="deletePost(post.postid)"
+                            *ngIf="userid==post.creatorid">
                             <i class="fa fa-trash"></i>
                         </a>
-
 
                         <!-- creator email and createDatetime -->
                         <span class="text-muted">

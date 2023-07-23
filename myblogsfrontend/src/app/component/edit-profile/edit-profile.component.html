@@ -21,7 +21,7 @@
                         <!-- label -->
                         <div class="col-3">
                             <label class="col-form-label" for="id">
-                                Id<small>*</small>
+                                ID<small>*</small>
                             </label>
                         </div>
                         <!-- textbox -->
@@ -104,7 +104,7 @@
                         <!-- textbox -->
                         <div class="col-9">
                             <input class="form-control" type="text" formControlName="phone" placeholder="Phone"
-                                id="phone" tooltip="Phone number(10 digits)">
+                                id="phone">
                             <!-- error messages -->
                             <div class="text-danger" *ngFor="let e of errorMessages.phone">
                                 <!-- errors on the "phone" field -->
@@ -123,13 +123,13 @@
                         <!-- label -->
                         <div class="col-3">
                             <label class="col-form-label" for="address">
-                                Address<small class="text-danger">*</small>
+                                Address
                             </label>
                         </div>
                         <!-- textbox -->
                         <div class="col-9">
-                            <input class="form-control" type="text" formControlName="address"
-                                placeholder="Address" id="address">
+                            <input class="form-control" type="text" formControlName="address" placeholder="Address"
+                                id="address">
                             <!-- error messages -->
                             <div class="text-danger" *ngFor="let e of errorMessages.address">
                                 <!-- errors on the "address" field -->

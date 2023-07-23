@@ -1,6 +1,6 @@
 <div class="text-center">
     <h3>View post</h3>
-    <hr class="mx-auto" width="650px">
+    <hr class="mx-auto" width="815px">
 </div>
 
 <div class="container-fluid">
@@ -9,7 +9,7 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-8 offset-md-2">
 
                 <!-- post -->
                 <div class="card mb-3">
@@ -27,13 +27,15 @@
                         <p class="card-text" [innerHtml]="post.content"></p>
                     </div>
 
-                    <!-- comment file + comment id -->
+                    <!-- "category name" and "creator email" -->
                     <div class="card-footer bg-transparent">
 
+                        <!-- category name -->
                         <span>
                             {{post.categoryName}}
                         </span>
 
+                        <!-- creator email -->
                         <span class="float-right">
                             {{post.creator}}
                         </span>
@@ -46,7 +48,7 @@
         </div>
 
         <!-- buttons -->
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center mb-3">
             <div>
 
                 <!-- the "Cancel" button -->

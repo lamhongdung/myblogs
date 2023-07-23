@@ -22,6 +22,9 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
+    //
+    // sidebar menu.
+    //
     // get category sidebar(categories and their number of posts)
     public List<CategorySidebar> getCategorySidebar() {
 
@@ -48,23 +51,6 @@ public class PostService {
         return postRepository.searchPosts(pageNumber, pageSize, categoryid);
 
     } // end of searchPosts()
-//
-//    // calculate total of tickets based on the search criteria
-//    public long getTotalOfTickets(long userid,
-//                                  String searchTerm, String fromDate, String toDate,
-//                                  String categoryid, String priorityid, String creatorid,
-//                                  String teamid, String assigneeid, String sla,
-//                                  String ticketStatusid) {
-//
-//        LOGGER.info("get total of tickets");
-//
-//        return ticketRepository.getTotalOfTickets(userid,
-//                searchTerm, fromDate, toDate,
-//                categoryid, priorityid, creatorid,
-//                teamid, assigneeid, sla,
-//                ticketStatusid);
-//    }
-//
 
     // create a new post.
     public HttpResponse createPost(PostCreateRequest postCreateRequest) {
@@ -77,6 +63,8 @@ public class PostService {
         post.setTitle(postCreateRequest.getTitle());
         post.setCategoryid(postCreateRequest.getCategoryid());
         post.setContent(postCreateRequest.getContent());
+
+        // 'Publish' status
         post.setPostStatusid(1);
 
         // save new post into the "post" table in database.
@@ -90,7 +78,8 @@ public class PostService {
     public PostEditViewResponse getPostById(Long id) {
 
         return postRepository.getPostById(id);
-    }
+
+    } // end of getPostById()
 
     // update existing post.
     public HttpResponse updatePost(PostEditRequest postEditRequest)
@@ -118,7 +107,7 @@ public class PostService {
 
     } // end of updatePost()
 
-    // delete post
+    // delete a post by its id
     public HttpResponse deletePost(Long id)
             throws EntityNotFoundException {
 

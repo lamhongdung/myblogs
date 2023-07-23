@@ -47,17 +47,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+
+    } // end of SecurityConfiguration()
 
     // authentication
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
-    }
+
+    } // end of configure()
 
     // authorization
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.csrf().disable().cors().and()
                 // stateless: no use session, because we will use JWT
                 .sessionManagement().sessionCreationPolicy(STATELESS)
@@ -74,11 +78,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // run filter jwtAuthorizationFilter --> and then filter UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
-    }
+    } // end of configure()
 
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
+
         return super.authenticationManagerBean();
-    }
+
+    } // end of authenticationManagerBean()
 }

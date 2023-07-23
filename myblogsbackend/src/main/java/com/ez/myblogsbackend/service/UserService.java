@@ -3,7 +3,6 @@ package com.ez.myblogsbackend.service;
 import com.ez.myblogsbackend.entity.User;
 import com.ez.myblogsbackend.exception.BadDataException;
 import com.ez.myblogsbackend.payload.EditProfile;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 
 import javax.persistence.EntityNotFoundException;
 

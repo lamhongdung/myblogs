@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
 
-    <!-- call createPost() when user clicks the "Publish" button -->
+    <!--  -->
     <form [formGroup]="contactForm">
 
         <div class="row">
@@ -95,16 +95,14 @@
                             <input class="form-control" type="text" formControlName="company" id="company">
                             <!-- error messages -->
                             <div class="text-danger" *ngFor="let e of errorMessages.company">
-                                <div
-                                    *ngIf="contactForm.get('company')?.hasError(e.type) && 
-                                                        (contactForm.get('company')?.dirty || contactForm.get('company')?.touched)">
+                                <div *ngIf="contactForm.get('company')?.hasError(e.type) && 
+                                        (contactForm.get('company')?.dirty || contactForm.get('company')?.touched)">
 
                                     <small>{{e.message}}</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -140,27 +138,25 @@
                                     <small>{{e.message}}</small>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <!-- buttons: "Send" -->
+        <!-- buttons: "Send" and "Cancel" -->
         <div class="d-flex justify-content-center mb-3">
             <div>
 
                 <!-- the "Send" button -->
-                <!-- if postForm is invalid then disabled the button "Publish" -->
+                <!-- if contactForm is invalid then disabled the button "Send" -->
                 <button (click)="sendContact()" [disabled]="contactForm.invalid" style="width: 150px"
                     class="btn btn-primary mr-2">
-                    <!-- show the spinner icon in the "Publish" button -->
+                    <!-- show the spinner icon in the "Send" button -->
                     <i *ngIf="showSpinner" class="fas fa-spinner fa-spin"></i>
-                    <!-- Change label button "Publish" to "Publishing.." -->
+                    <!-- Change label button "Send" to "Sending.." -->
                     <span *ngIf="showSpinner">Sending...</span>
-                    <!-- after publish finished then re-changes the button to "Publish"  -->
+                    <!-- after publish finished then re-changes the button to "Send"  -->
                     <span *ngIf="!showSpinner">Send</span>
                 </button>
 

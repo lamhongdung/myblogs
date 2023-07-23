@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ConfirmBoxEvokeService } from '@costlydeveloper/ngx-awesome-popup';
 import { NotifierService } from 'angular-notifier';
 import { NotificationType } from 'src/app/enum/NotificationType';
@@ -74,20 +73,20 @@ export class FooterComponent implements OnInit {
         data => this.userid = data
       )
 
-    // list of posts by category id
-    this.searchPosts(1, 3, 0);
+    // list of posts by category id.
+    // need to refresh list of posts in case user delete a certain post.
+    this.searchPosts(1, this.thePageSize, 0);
 
-    // categories sidebar
+    // categories sidebar.
+    // need to refresh the sidebar in case user delete a certain post.
     this.getCategoriesSidebar();
-
-
 
   } // end of ngOnInit()
 
-  // get products, total products
+  // get posts
   searchPosts(pageNumber: number, pageSize: number, categoryid: number) {
 
-    // get products
+    // get posts
     this.postService.searchPosts((pageNumber - 1) * pageSize, pageSize, categoryid)
 
       .subscribe({
@@ -99,7 +98,7 @@ export class FooterComponent implements OnInit {
 
         },
 
-        // there are some errors when get products
+        // there are some errors when get posts
         error: (errorResponse: HttpErrorResponse) => {
 
           // show the error message to user
@@ -110,7 +109,8 @@ export class FooterComponent implements OnInit {
 
   } // end of searchPosts()
 
-  // get number of posts of each category
+  // sidebar menu.
+  // get number of posts of each category.
   getCategoriesSidebar() {
 
     // get number of posts of each category
@@ -123,13 +123,17 @@ export class FooterComponent implements OnInit {
 
           this.categoriesSidebar = data
 
+          // get current category
           this.categorySidebar = this.categoriesSidebar.find(tempCategorySidebar => tempCategorySidebar.id === this.categoryid)!;
+          
+          // get number of posts of current category
           this.theTotalElements = this.categorySidebar?.numOfPosts;
-          console.log(`theTotalElements: ${this.theTotalElements}`);
+
+          // console.log(`theTotalElements: ${this.theTotalElements}`);
 
         },
 
-        // there are some errors when get products
+        // there are some errors when get posts
         error: (errorResponse: HttpErrorResponse) => {
 
           // show the error message to user
@@ -165,6 +169,7 @@ export class FooterComponent implements OnInit {
         // user confirmed to delete
         next: resp => {
 
+          // if user clicks the 'Yes' button
           if (resp.clickedButtonID == 'yes') {
 
             // delete exsting post
@@ -207,4 +212,4 @@ export class FooterComponent implements OnInit {
 
   } // end of sendNotification()
 
-} // end of class ProductListComponent
+} // end of class FooterComponent

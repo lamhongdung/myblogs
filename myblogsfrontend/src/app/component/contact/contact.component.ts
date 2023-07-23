@@ -6,7 +6,6 @@ import { NotifierService } from 'angular-notifier';
 import { Editor, Toolbar } from 'ngx-editor';
 import { NotificationType } from 'src/app/enum/NotificationType';
 import { CustomHttpResponse } from 'src/app/payload/CustomHttpResponse';
-import { AuthService } from 'src/app/service/auth.service';
 import { ContactService } from 'src/app/service/contact.service';
 import { CustomValidator } from 'src/app/validator/CustomValidator';
 
@@ -45,8 +44,8 @@ export class ContactComponent implements OnInit {
       { type: 'maxlength', message: 'Company cannot be longer than 100 characters' }
     ],
     message: [
-      { type: 'required', message: 'Please input a message' },
-      { type: 'allWhitespace', message: 'Message does not allow all white spaces' }
+      { type: 'required', message: 'Please input a message' }
+      // { type: 'allWhitespace', message: 'Message does not allow all white spaces' }
     ],
   };
 
@@ -93,7 +92,7 @@ export class ContactComponent implements OnInit {
       company: ['', [Validators.required, CustomValidator.allWhitespace, Validators.maxLength(100)]],
 
       // required
-      message: ['', [Validators.required, CustomValidator.allWhitespace]],
+      message: ['', [Validators.required]],
 
     });
 

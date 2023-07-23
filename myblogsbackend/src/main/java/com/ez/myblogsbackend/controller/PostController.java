@@ -26,9 +26,12 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    //
+    // sidebar menu.
+    //
     // get categories sidebar(categories and their number of posts).
     //
-    // all authenticated users can access this resource.
+    // all users can access this resource.
     @GetMapping("/category-sidebar")
     public ResponseEntity<List<CategorySidebar>> getCategorySidebar() {
 
@@ -56,7 +59,7 @@ public class PostController {
 
     // search post based on category id
     // for loading posts in the "Post list" screen.
-    // categoryid = 0: search all categories.
+    // categoryid = 0: means search all categories.
     // all users(include Guest user) can access this resource.
     @GetMapping("/post-search")
     public ResponseEntity<List<PostSearchResponse>> searchPosts(@RequestParam long pageNumber,
@@ -109,9 +112,10 @@ public class PostController {
         PostEditViewResponse postEditViewResponse = postService.getPostById(id);
 
         return new ResponseEntity<>(postEditViewResponse, OK);
+
     } // end of getPostById()
 
-
+    //
     // edit existing post.
     //
     @PutMapping("/post-edit")

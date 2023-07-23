@@ -18,7 +18,7 @@ public class EditProfile {
     @Email(message = "Email is incorrect format")
     private String email;
 
-    @Size(min = 1, max = 50, message = "Length of the first name must be between 1 and 50 characters")
+    @Size(min = 1, max = 50, message = "Length of first name must be between 1 and 50 characters")
     private String firstName;
 
     @Size(min = 1, max = 50, message = "Length of last name must be between 1 and 50 characters")

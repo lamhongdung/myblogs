@@ -27,7 +27,7 @@ import static java.util.Arrays.*;
 @Component
 public class JWTTokenProvider {
 
-    //  injecting value into field secret
+    // injecting value into field secret
     @Value("${jwt.secret}")
     private String secret;
 
@@ -44,7 +44,8 @@ public class JWTTokenProvider {
                 .withArrayClaim(AUTHORITIES, claims)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(secret.getBytes()));
-    }
+
+    } // end of generateJwtToken()
 
     public List<GrantedAuthority> getAuthorities(String token) {
         String[] claims = getClaimsFromToken(token);
@@ -85,7 +86,6 @@ public class JWTTokenProvider {
         JWTVerifier verifier;
         try {
             Algorithm algorithm = HMAC512(secret);
-//            verifier = JWT.require(algorithm).withIssuer(MARKET_PLACE).build();
             verifier = JWT.require(algorithm).build();
         } catch (JWTVerificationException exception) {
             throw new JWTVerificationException(TOKEN_CANNOT_BE_VERIFIED);
