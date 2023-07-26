@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: 'signup', component: UserCreateComponent },
   // login
   { path: 'login', component: LoginComponent },
+  // posts list
   { path: 'post-list', component: PostListComponent },
+  // user clicks on a category on the sidebar menu
   { path: 'category-sidebar/:id', component: PostListComponent },
   // create new post. only user has already logged-in can see 'New post' menu.
   {
@@ -24,7 +26,8 @@ const routes: Routes = [
       roles: ['ROLE_USER', 'ROLE_ADMIN']
     }
   },
-  // edit existing post. only user has already logged-in can see 'New post' menu.
+  // edit existing post. 
+  // user only can edit posts which are posted by them-self
   {
     path: 'post-edit/:id', component: PostEditComponent, canActivate: [AuthGuard],
     data: {
@@ -42,7 +45,7 @@ const routes: Routes = [
   },
   // contact page. all users can access the 'Contact' page.
   { path: 'contact', component: ContactComponent },
-  // { path: '', redirectTo: '/post-list', pathMatch: 'full' },
+  //
   { path: '', redirectTo: '/post-list', pathMatch: 'full' },
   // if paths are not in the above list then redirects to path '/post-list'
   { path: '**', redirectTo: '/post-list', pathMatch: 'full' }

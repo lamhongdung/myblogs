@@ -5,15 +5,15 @@
 @import "node_modules/@costlydeveloper/ngx-awesome-popup/styles/theme";
 
 /* frame of form */
-.form-area {
+/* .form-area {
     position: relative;
     margin-bottom: 45px;
     padding: 50px 20px;
     border: 1px solid #ccc
-}
+} */
 
 /* frame title */
-.form-area h4 {
+/* .form-area h4 {
     position: absolute;
     top: -26px;
     left: 13px;
@@ -22,10 +22,10 @@
     font-weight: 500;
     z-index: 23;
     display: inline-block
-}
+} */
 
 /* frame title */
-.form-area h3 {
+/* .form-area h3 {
     position: absolute;
     top: -26px;
     left: 13px;
@@ -34,7 +34,7 @@
     font-weight: 500;
     z-index: 23;
     display: inline-block
-}
+} */
 
 .pointer {
     cursor: pointer;

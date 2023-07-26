@@ -46,8 +46,8 @@ export class UserCreateComponent implements OnInit {
       { type: 'pattern', message: 'Phone number must be 10 digits length' }
     ],
     address: [
-      { type: 'allWhitespace', message: 'Shipping address does not allow all white spaces' },
-      { type: 'maxlength', message: 'Shipping Address cannot be longer than 100 characters' }
+      { type: 'allWhitespace', message: 'Address does not allow all white spaces' },
+      { type: 'maxlength', message: 'Address cannot be longer than 100 characters' }
     ]
   };
 
@@ -93,7 +93,7 @@ export class UserCreateComponent implements OnInit {
 
   } // end of initForm()
 
-  // create user(customer).
+  // create user.
   // when user clicks the "Save" button in the "Sign up" screen
   createUser() {
 
@@ -112,8 +112,6 @@ export class UserCreateComponent implements OnInit {
           // show successful message to user 
           this.sendNotification(NotificationType.SUCCESS,
             `${data.lastName} ${data.firstName} is created successfully`);
-          // this.notifierService.notify(NotificationType.SUCCESS,
-          //   `${data.lastName} ${data.firstName} is created successfully`);
 
           // hide spinner(circle)
           this.showSpinner = false;

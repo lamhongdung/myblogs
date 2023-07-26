@@ -32,7 +32,7 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  // when user clicks on the "Login" button in "Login" screen
+  // when user clicks on the "Login" button in the "Login" screen
   public login(loginUser: LoginUser): Observable<HttpResponse<User>> {
 
     return this.http.post<User>(`${this.host}/login`, loginUser, { observe: 'response' });
@@ -141,7 +141,7 @@ export class AuthService {
 
   } // end of getEmailFromLocalStorage()
 
-  // get role of the logged in user
+  // get role of the logged-in user
   public getRoleFromLocalStorage(): string {
 
     // if user is existing in the local storage

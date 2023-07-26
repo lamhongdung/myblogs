@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { NotifierService } from 'angular-notifier';
 import { NotificationType } from '../enum/NotificationType';
@@ -31,10 +30,10 @@ export class AuthGuard implements CanActivate {
 
       console.log("role:" + role);
 
-      // if role is not correct then redirects to home page(/product-list)
+      // if role is not correct then redirects to home page(/post-list)
       if (route.data['roles'].indexOf(role) === -1) {
 
-        this.router.navigate(['/product-list'], {
+        this.router.navigate(['/post-list'], {
           queryParams: { returnUrl: state.url }
         });
 

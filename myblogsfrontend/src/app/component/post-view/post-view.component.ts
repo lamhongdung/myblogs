@@ -21,7 +21,6 @@ export class PostViewComponent {
 
   constructor(
 
-    private router: Router,
     private postService: PostService,
     private activatedRoute: ActivatedRoute,
     private notifierService: NotifierService

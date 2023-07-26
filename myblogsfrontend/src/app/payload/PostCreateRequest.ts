@@ -11,7 +11,7 @@ export class PostCreateRequest {
         // category id
         public categoryid: number,
 
-        // ticket content
+        // post content
         public content: string,
 
     ) {
